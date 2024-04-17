@@ -11,7 +11,8 @@
       "@/constant/*": ["./constant/*"],
       "@/context/*": ["./context/*"],
       "@/db/*": ["./db/*"],
-       "@/app/*": ["./app/*"]
+       "@/app/*": ["./app/*"],
+       "@/fonts/*": ["./fonts/*"],
     }
   },
   "exclude": [
