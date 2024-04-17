@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model provider {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug         String   @default("")
+  counter      Int      @default(0)
+  providerName String   @unique
+  image        String   @default("")
+  logo         String   @default("")
+  heroSlogon   String   @default("")
+  carType      String[]
+  starCount    Int      @default(0)
+  commentCount Int      @default(0)
+  service      String[]
+  facility     String[]
+  description  String   @default("")
+  detail       String   @default("")
+  type         String   @default("")
+  city         String   @default("")
+  dist         String   @default("")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model image {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  providerid String   @default("")
+  image      String   @default("")
+  type       String   @default("")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model service {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  providerid String   @default("")
+  service    String   @default("")
+  detail     String   @default("")
+  image      String   @default("")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model offers {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  providerid String   @default("")
+  offer      String   @default("")
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model free {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  providerid String   @default("")
+  free      String   @default("")
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+
+
+
+
+
+model Client {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  clientIDs   Int      @unique
+  name        String?  @default("")
+  mobile      String   @unique
+  email       String?
+  password    String?
+  payment     Float    @default(0)
+  recipts     Float    @default(0)
+  balance     Int      @default(0)
+  createdDate DateTime @default(now())
+  updatedDate DateTime @updatedAt
+}
+
+model Car {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  clientId    Int
+  clientName  String   @default("")
+  carName     String   @default("")
+  CarNo       String   @unique
+  MasterCar   Boolean  @default(false)
+  BodyNo      String   @default("")
+  Model       String   @default("")
+  createdDate DateTime @default(now())
+  updatedDate DateTime @updatedAt
+}
+
+model comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  comment   String   @default("")
+  commentType   String   @default("")
+  providerid String   @default("")
+  isVisible Boolean  @default(false)
+  user      String   @default("")
+  username  String   @default("")
+  avatar    String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model commentType {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name   String   @default("")
+  avatar  String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model user {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @default("")
+  phone     String   @unique
+  avatar    String   @default("")
+  password  String   @default("")
+  role      String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model isLogin {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @default("")
+  phone     String   @unique
+  avatar    String   @default("")
+  password  String   @default("")
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
