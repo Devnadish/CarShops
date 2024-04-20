@@ -6,7 +6,6 @@ import { Separator } from '../ui/separator';
 
 function PageCounter() {
   const { recordCounter,pageCount } = useContext(UrlContext);
-  console.log(recordCounter,pageCount)
   const [Count, setCount] = useState({records:0,pages:0});
 
  

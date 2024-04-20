@@ -1,6 +1,6 @@
 'use client'
 import DialogBox from '@/components/shared/DialogBox'
-import INPUT from '@/components/shared/INPUT'
+import INPUT from '@/app/provider/[providerid]/_component/comment/CommetInput'
 import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'

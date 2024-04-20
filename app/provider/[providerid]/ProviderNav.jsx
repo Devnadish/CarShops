@@ -2,10 +2,12 @@ import { providerMenu } from '@/constant/menu'
 import Link from 'next/link'
 import Text from '@/components/shared/Text'
 import GoHome from '@/components/shared/GoHome'
+import { providerType } from '@/lib/provider'
 
-export const ProviderNav = () => {
+export const ProviderNav = ({ providerName, type }) => {
   return (
-    <nav className='fixed top-0 z-50 flex h-10 w-full items-center justify-center bg-red-500 shadow-lg'>
+    <nav className='fixed top-0 z-50 flex  w-full flex-col items-center justify-center shadow-lg'>
+      <ProviderMenuBar providerName={providerName} type={type} />
       <div className='flex h-full w-[100%] items-center justify-between bg-secondary shadow-lg'>
         <ProviderMenu />
       </div>
@@ -15,7 +17,7 @@ export const ProviderNav = () => {
 
 const ProviderMenu = () => {
   return (
-    <div className='flex w-full items-center justify-between px-4'>
+    <div className='flex w-full h-12 items-center justify-between px-4'>
       <div className='flex  w-full items-start    gap-2  px-4 lg:gap-6      '>
         {providerMenu.map(menuItem => {
           return (
@@ -32,7 +34,24 @@ const ProviderMenu = () => {
           )
         })}
       </div>
-      <GoHome />
+    </div>
+  )
+}
+
+const ProviderMenuBar = ({ providerName, type }) => {
+  return (
+    <div className='flex h-12 w-[100%] items-center justify-between gap-4 bg-secondary/40 shadow-lg px-8'>
+      <div className='flex items-center gap-4 '>
+        <div className='flex items-center justify-center border px-3 rounded-full'>
+          <Text fontSize={"xs"}>{providerType(type)}</Text>
+        </div>
+        <div>
+          <Text fontSize={"xl"} fontFamily={"tajwal"} className={"text-2xl font-semibold"} >  {providerName} </Text>
+        </div>
+      </div>
+      <div>
+        <GoHome />
+      </div>
     </div>
   )
 }

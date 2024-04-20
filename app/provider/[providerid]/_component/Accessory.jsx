@@ -1,9 +1,10 @@
 import React from 'react'
 import { SectionTitle } from './SectionTitle'
-import { Car  } from '@/lib/icons'
 import { extraService } from '@/constant/extraService'
 import ServiceActionButton from './ServiceActionButton'
 import { ExtraService } from './ExtraService'
+import CommentsInformation from './comment/CommentsInformation'
+
 
 export const Accessory = ({providerName}) => {
   return (
@@ -18,9 +19,15 @@ export const Accessory = ({providerName}) => {
                 title={service.title}
                 description={service.description}
                 subPoints={service.subPoints}
-                
               />
               <ServiceActionButton
+                description={service.description}
+                subPoints={service.subPoints}
+                providerName={providerName}
+                serviceName={service.title}
+                icon={service.icon}
+              />
+               <CommentsInformation
                 description={service.description}
                 subPoints={service.subPoints}
                 providerName={providerName}

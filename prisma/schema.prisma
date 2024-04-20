@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// porvider Data
 model provider {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   slug         String   @default("")
@@ -28,117 +29,145 @@ model provider {
   type         String   @default("")
   city         String   @default("")
   dist         String   @default("")
+  userid       String   @default("")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
 
+// porvider images with use in provider page 
 model image {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   providerid String   @default("")
   image      String   @default("")
   type       String   @default("")
+  userid     String   @default("")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
+// contains the service information provider with support Master service or subService
 model service {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  providerid String   @default("")
+  service_id String   @default("")
   service    String   @default("")
   detail     String   @default("")
   image      String   @default("")
+  userid     String   @default("")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
+// store service action from Each user To each Service or SubService for speisific  provider with 
+model seviceAction {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  providerid  String   @default("")
+  serviceid   String   @default("")
+  serviceName String   @default("")
+  actionid    String   @default("")
+  userid      String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// store comments from Each user To each Service or SubService for speisific  provider with 
+model comment {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  comment    String   @default("")
+  providerid String   @default("")
+  serviceid  String   @default("")
+  isShow     Boolean  @default(false)
+  isOpen     Boolean  @default(false)
+  userid     String   @default("")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// store replay for comments from Each user or Provider To each Service or SubService for speisific  provider with 
+model replay {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  replay     String   @default("")
+  commentid  String   @default("")
+  isProvider Boolean  @default(false)
+  userid     String   @default("")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// store provider offers
 model offers {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   providerid String   @default("")
   offer      String   @default("")
-  active     Boolean  @default(true)
+  offerValue String   @default("")
+  isActive   Boolean  @default(true)
+  isShow     Boolean  @default(true)
+  userid     String   @default("")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
+// store provider free offers
 model free {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   providerid String   @default("")
-  free      String   @default("")
-  active     Boolean  @default(true)
+  free       String   @default("")
+  isActive   Boolean  @default(true)
+  userid     String   @default("")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
-
-
-
-
-
-model Client {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  clientIDs   Int      @unique
-  name        String?  @default("")
-  mobile      String   @unique
-  email       String?
-  password    String?
-  payment     Float    @default(0)
-  recipts     Float    @default(0)
-  balance     Int      @default(0)
-  createdDate DateTime @default(now())
-  updatedDate DateTime @updatedAt
-}
-
-model Car {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  clientId    Int
-  clientName  String   @default("")
-  carName     String   @default("")
-  CarNo       String   @unique
-  MasterCar   Boolean  @default(false)
-  BodyNo      String   @default("")
-  Model       String   @default("")
-  createdDate DateTime @default(now())
-  updatedDate DateTime @updatedAt
-}
-
-model comment {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  comment   String   @default("")
-  commentType   String   @default("")
-  providerid String   @default("")
-  isVisible Boolean  @default(false)
-  user      String   @default("")
-  username  String   @default("")
-  avatar    String   @default("")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-model commentType {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name   String   @default("")
-  avatar  String   @default("")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
+// store provider and user cradintional free offers
 model user {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String   @default("")
-  phone     String   @unique
+  mobile    String   @unique
+  email     String   @default("")
   avatar    String   @default("")
   password  String   @default("")
+  isBlocked Boolean  @default(false)
   role      String   @default("")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model isLogin {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String   @default("")
-  phone     String   @unique
-  avatar    String   @default("")
-  password  String   @default("")
-  role      String   @default("user")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// store all cars availbal in platform
+model Car {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  use         String   @default("")
+  carid       String   @default("")
+  userid      String   @default("")
+  createdDate DateTime @default(now())
+  updatedDate DateTime @updatedAt
 }
+
+// store user cars to prefer suggetion for wotkshop or car that he like it
+model userCar {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userid      String   @default("")
+  carid       String   @default("")
+  isMasterCar Boolean  @default(false)
+  createdDate DateTime @default(now())
+  updatedDate DateTime @updatedAt
+}
+
+// store provider setting that he like in his page
+model setting {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  providerid     String   @default("")
+  maxlength_chat Int      @default(0)
+  userid         String   @default("")
+  updatedDate    DateTime @updatedAt
+}
+// store provider setting that he like in his page
+model errors {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  url  String   @default("")
+  refrence String   @default("")
+  sourceCode String @default("")
+  error String @default("")
+  systemError String   @default("")
+  userid         String   @default("")
+  updatedDate    DateTime @updatedAt
+}
+

@@ -12,9 +12,7 @@ export const getCars = async (pageNo, query) => {
 
   if (query.vechile) {
     carCondition = query.vechile && FilterFunc(query.vechile)
-    console.log("x0")
   } else {
-    console.log("x1")
     carCondition = {}
   }
 
@@ -23,7 +21,6 @@ export const getCars = async (pageNo, query) => {
   } else {
     typeCondition = {}
   }
-  // console.log(typeCondition)
 
   let whereCondition = { ...carCondition, ...typeCondition }
 
@@ -46,7 +43,6 @@ export const getCars = async (pageNo, query) => {
   }
 
   if (providers.length === 0) {
-    console.log('No more records available.')
     revalidatePath('/')
     return { providers: [], hasMore: false } // Return an object with empty providers and hasMore set to false
   }

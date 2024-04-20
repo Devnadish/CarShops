@@ -1,5 +1,5 @@
 'use client'
-import ClintChat from '@/app/provider/[providerid]/_component/ClintChat'
+import Comments from '@/app/provider/[providerid]/_component/comment/Comments'
 import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
 import { MessageCircleMore } from '@/lib/icons'
@@ -19,7 +19,7 @@ function ServiceActionButton({ description, subPoints,title,providerName ,servic
         <Text>التعليقات</Text>
         <MessageCircleMore />
       </Button>
-      <ClintChat open={open} setOpen={setOpen} providerName={providerName} serviceName={serviceName} icon={icon}/>
+      <Comments open={open} setOpen={setOpen} providerName={providerName} serviceName={serviceName} icon={icon}/>
     </div>
   )
 }

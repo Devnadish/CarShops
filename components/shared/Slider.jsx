@@ -27,7 +27,6 @@ function Slider() {
     const queryString=urlQuery('vechile',value)
     const updatedUrl = `${pathName}${queryString ? `?${queryString}` : ''}`;
     router.replace(updatedUrl,  {scroll: true });
-    console.log(value)
     // router.prefetch()router.refresh()
     // router.refresh()
     router.prefetch(updatedUrl)

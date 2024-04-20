@@ -3,6 +3,9 @@ import Text from '@/components/shared/Text'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import SectionAnimation from '@/components/shared/SectionAnimation'
+import { CallIcon, EmailIcon, ShareIcon } from './ProviderIcons'
+import { WhatsappIcon } from '@/components/svg/Whatsapp'
+import { Facebook, Instagram, Tiktok, XTwitter, Youtube } from '@/components/svg/Socail'
 const ctaMessage = 'تواصل معنا'
 
 function TextSide(props) {
@@ -81,11 +84,47 @@ export function HeroImage(props) {
 
 export const CTA = () => {
   return (
-    <Button
-      // className='  w-[90%]  '
-      variant='outline'
-    >
-      <Text>{ctaMessage}</Text>
-    </Button>
+    <div className='flex flex-col items-center justify-center gap-4'>
+      <Button
+        // className='  w-[90%]  '
+        variant='outline'
+      >
+        <Text>{ctaMessage}</Text>
+      </Button>
+      <div className='hidden md:flex items-center gap-4'>
+        <Button size='icon' variant='ghost'>
+          <ShareIcon className='size-6' />
+        </Button>
+        <Button size='icon' variant='ghost'>
+          <CallIcon className='size-6' />
+        </Button>
+        <Button size='icon' variant='ghost'>
+          <EmailIcon className='size-6' />
+        </Button>
+        <Button size='icon' variant='ghost'>
+          <WhatsappIcon className='size-6' />
+        </Button>
+        <Button size='icon' variant='ghost'>
+          <Tiktok className='size-6' />
+        </Button>
+        <Button size='icon' variant='ghost'>
+          <Instagram className='size-6' />
+        </Button>
+        <Button size='icon' variant='ghost'>
+          <Facebook className='size-6' />
+        </Button>
+        <Button size='icon' variant='ghost'>
+          <XTwitter className='size-6' />
+        </Button>
+        <Button size='icon' variant='ghost'>
+          <Youtube className='size-6' />
+        </Button>
+      </div>
+    </div>
   )
 }
+
+
+
+
+

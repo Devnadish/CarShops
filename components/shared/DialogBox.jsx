@@ -9,17 +9,12 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Separator } from "../ui/separator"
 
@@ -53,13 +48,13 @@ import { Separator } from "../ui/separator"
         <Button variant="outline">Edit Profile</Button>
       </DrawerTrigger> */}
       <DrawerContent>
-        <DrawerHeader className="flex items-start w-full flex-col" >
+        {/* <DrawerHeader className="flex items-start w-full flex-col" >
           <DrawerTitle>{Title}</DrawerTitle>
           <DrawerDescription>
           {Description}
           </DrawerDescription>
-        </DrawerHeader>
-        <Separator className="bg-accent/50"/>
+        </DrawerHeader> */}
+        {/* <Separator className="bg-accent/50"/> */}
         {children}
         {/* <ProfileForm className="px-4" /> */}
         <DrawerFooter className="pt-2">

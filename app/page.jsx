@@ -16,7 +16,7 @@ export default async function Home({searchParams}) {
       <Counters records={recordCount} pages={pageCount}/>
       <Bar recordCount={recordCount} pageCount={pageCount} />
       <FilterDescriptor query={query}/>
-      {/* <FakeData /> */}
+      <FakeData />
       <div className='absolute top-20 flex w-full  flex-wrap  items-center justify-center  gap-4 '>
          {providers.map((provider, index) => (
           <ShowCard

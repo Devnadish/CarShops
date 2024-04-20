@@ -5,7 +5,7 @@ import { Megaphone } from '@/lib/icons';
 
 export const Socila = () => {
     return (
-      <div className='flex  items-center   gap-1 px-1'>
+      <div className='md:hidden flex  items-center   gap-1 px-1'>
         <Dropdown icon={<Megaphone className='size-6' />} title="قنوات التواصل " menu={socialMenu}/>
       </div>
     )

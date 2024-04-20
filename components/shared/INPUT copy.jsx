@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Notify } from '@/lib/notify'
 import { Button } from '../ui/button'
+
+ 
+
+
+
 //TODO: FIX input is more than  characters, it over print in the clear icon
 function ClearBtn(props) {
   return (

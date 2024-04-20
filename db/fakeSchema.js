@@ -62,7 +62,6 @@ export const DBgenerateFakeImage = async () => {
         providerid: provider.id, // Ensure this matches your database field name
         type: 'slider'
       }
-      console.log(image.image)
       await db.image.create({ data: image })
     }
   }

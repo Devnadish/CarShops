@@ -19,18 +19,38 @@ export const providerData = async id => {
     }
   })
 
-
   const providerService = await db.service.findMany({
     where: { providerid: id },
     select: { service: true, detail: true, image: true }
   })
-  const { logo , ...rest } = providerInfo;
+  const { logo, ...rest } = providerInfo
 
-const { heroSlogon, description, detail, providerName, carType } = rest;
+  const { heroSlogon, description, detail, providerName, carType } = rest
   // const { logo="./logo.svg", heroSlogon, description,detail,providerName ,carType} = providerInfo;
-  console.log(providerService)
-console.log(logo)
 
-  return { images,  logo, heroSlogon, description,detail,providerName,carType,providerService };
+  return {
+    images,
+    logo,
+    heroSlogon,
+    description,
+    detail,
+    providerName,
+    carType,
+    providerService
+  }
 }
- 
+
+export const getPrviderData = async id => {
+  try {
+    const provider = await db.provider.findFirst({
+      where: { id: id },
+      select: {
+        providerName: true,
+        type: true
+      }
+    })
+    return provider || ''
+  } catch (error) {
+    return error
+  }
+}

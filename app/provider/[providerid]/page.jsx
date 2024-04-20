@@ -25,7 +25,7 @@ async function page({ params }) {
   const OPTIONS = {}
   return (
     <div className='flex w-[90%] flex-col items-center justify-center gap-4'>
-
+<Accessory  providerName={providerName}/>
       <HeroSection
         heroSlogon={heroSlogon}
         logo={logo}
@@ -42,6 +42,7 @@ async function page({ params }) {
       <Comments />
       <Stars />
       <Testmoinal />
+      {/* <WorkingHours /> */}
       {/* <Chat /> */}
       <Reserve />
       <SideMenu />

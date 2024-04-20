@@ -1,4 +1,4 @@
-import { CarDelevery, CarServices, CarWash, HappyFace, Loyalty, Muscle, RoadHelp } from "@/components/svg/ServiceIcon";
+import { CarDelevery, CarServices, CarWash, HappyFace, Loyalty, Muscle, RoadHelp } from "@/app/provider/[providerid]/_component/ProviderIcons";
 
  
 
@@ -83,5 +83,17 @@ export const extraService = [
       'خدمات إصلاح سريعة وفعالة.'
     ]
   }
+]
+  
+
+
+export const extraService1 = [
+  'برامج الولاء والمكافآت',
+  'خدمات التوصيل والاستلام',
+  'ضمانات ممتدة وخطط صيانة',
+  'خدمات التنظيف والتجميل',
+  'خدمات فحص ما قبل الشراء',
+  'خدمات المساعدة على الطريق',
+  'خدمات الصيانة الدورية للمركبات التجارية'
 ]
   

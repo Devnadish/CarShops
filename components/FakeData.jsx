@@ -13,7 +13,7 @@ function FakeData() {
     }
 
   return (
-    <Button onClick={()=>handleFake()} className="absolute top-36 z-50 ">FakeData</Button>
+    <Button onClick={()=>handleFake()} className="fixed top-0 right-0 z-50 ">FK</Button>
   )
 }
 
