@@ -48,11 +48,12 @@ model image {
 // contains the service information provider with support Master service or subService
 model service {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  service_id String   @default("")
+  service_id Int   @default(0)
   service    String   @default("")
   detail     String   @default("")
   image      String   @default("")
   userid     String   @default("")
+  isMaster   Boolean   @default(false)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
@@ -134,8 +135,11 @@ model user {
 // store all cars availbal in platform
 model Car {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  use         String   @default("")
-  carid       String   @default("")
+  carid       Int   @default(0)
+  name        String   @default("")
+  logo        String   @default("")
+  metaTag     String   @default("")
+  history     String   @default("")
   userid      String   @default("")
   createdDate DateTime @default(now())
   updatedDate DateTime @updatedAt
@@ -159,15 +163,15 @@ model setting {
   userid         String   @default("")
   updatedDate    DateTime @updatedAt
 }
+
 // store provider setting that he like in his page
 model errors {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  url  String   @default("")
-  refrence String   @default("")
-  sourceCode String @default("")
-  error String @default("")
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  url         String   @default("")
+  refrence    String   @default("")
+  sourceCode  String   @default("")
+  error       String   @default("")
   systemError String   @default("")
-  userid         String   @default("")
-  updatedDate    DateTime @updatedAt
+  userid      String   @default("")
+  updatedDate DateTime @updatedAt
 }
-
