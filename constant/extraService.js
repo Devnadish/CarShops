@@ -1,13 +1,20 @@
-import { CarDelevery, CarServices, CarWash, HappyFace, Loyalty, Muscle, RoadHelp } from "@/app/provider/[providerid]/_component/ProviderIcons";
-
- 
+import {
+  CarDelevery,
+  CarServices,
+  CarWash,
+  HappyFace,
+  Loyalty,
+  Muscle,
+  RoadHelp
+} from '@/app/provider/[providerid]/_component/ProviderIcons'
 
 export const extraService = [
   {
     id: 1,
     title: 'برامج الولاء والمكافآت',
     description: 'مكافآت مميزة للعملاء المخلصين',
-    icon: <Loyalty className="size-8"/>,
+    icon: <Loyalty className='size-8' />,
+    type: 'subservice',
     subPoints: [
       'خصومات على خدمات الصيانة والإصلاح',
       'جمع نقاط قابلة للاستبدال بقطع غيار أو خدمات مجانية',
@@ -18,7 +25,8 @@ export const extraService = [
     id: 2,
     title: 'خدمات التوصيل والاستلام',
     description: 'وفر وقتك وجهدك مع خدمة استلام سيارتك وتوصيلها بعد الإصلاح',
-    icon: <CarDelevery className="size-8"/>,
+    icon: <CarDelevery className='size-8' />,
+    type: 'subservice',
     subPoints: [
       'استلام سيارتك من منزلك أو مكان عملك.',
       'توصيل سيارتك إليك بعد الإصلاح',
@@ -29,7 +37,8 @@ export const extraService = [
     id: 3,
     title: 'ضمانات ممتدة وخطط صيانة',
     description: 'راحة البال مع ضمان شامل',
-    icon: <Muscle className="size-8"/>,
+    icon: <Muscle className='size-8' />,
+    type: 'subservice',
     subPoints: [
       'تمديد ضمان المصنع لفترات أطول',
       'خطط صيانة دورية تشمل فحصًا شاملًا وتغيير الزيوت وقطع الغيار',
@@ -40,19 +49,21 @@ export const extraService = [
     id: 4,
     title: 'خدمات التنظيف والتجميل',
     description: 'سيارة نظيفة وجميلة من الداخل والخارج',
-    icon: <CarWash className="size-8"/>,
+    icon: <CarWash className='size-8' />,
+    type: 'subservice',
     subPoints: [
       'تنظيف مقاعد السيارة وأرضياتها وجدرانها',
       'غسل وتلميع هيكل السيارة',
       'تلميع الزجاج وإزالة الأوساخ'
     ]
   },
- 
+
   {
     id: 6,
     title: 'خدمات فحص ما قبل الشراء',
     description: 'تجنب المفاجآت عند شراء سيارة مستعملة',
-    icon: <HappyFace className="size-8"/>,
+    icon: <HappyFace className='size-8' />,
+    type: 'subservice',
     subPoints: [
       'فحص شامل لحالة السيارة الميكانيكية',
       'التأكد من خلوها من أي أعطال أو مشكلات',
@@ -63,29 +74,81 @@ export const extraService = [
     id: 7,
     title: 'خدمات المساعدة على الطريق',
     description: 'دعم 24/7 في أي مكان',
-    icon: <RoadHelp className="size-8"/>,
+    icon: <RoadHelp className='size-8' />,
+    type: 'subservice',
     subPoints: [
       'مساعدة في حال حدوث أعطال مفاجئة على الطريق',
       'سحب السيارة إلى ورشة العمل',
       'توفير خدمات إصلاح طارئة'
     ]
   },
-   
+
   {
     id: 9,
     title: 'خدمات الصيانة الدورية للمركبات التجارية',
     description: 'حافظ على أسطولك يعمل بسلاسة',
-    icon: <CarServices className="size-8"/>,
+    icon: <CarServices className='size-8' />,
+    type: 'subservice',
     subPoints: [
       'صيانة دورية للمركبات التجارية.',
       'فحص شامل للمحركات والمكابح والإطارات.',
       'تغيير الزيوت والفلاتر بانتظام.',
       'خدمات إصلاح سريعة وفعالة.'
     ]
+  },
+  {
+    id: 10,
+    title: 'كهرباء',
+    description: 'غير متوفر حاليا',
+    icon: 'غير متوفر حاليا',
+    type: 'service',
+    subPoints: [
+      'غير متوفر حاليا',
+      'غير متوفر حاليا',
+      'غير متوفر حاليا',
+      'غير متوفر حاليا'
+    ]
+  },
+  {
+    id: 11,
+    title: 'ميكانيكا',
+    description: 'غير متوفر حاليا',
+    icon: 'غير متوفر حاليا',
+    type: 'service',
+    subPoints: [
+      'غير متوفر حاليا',
+      'غير متوفر حاليا',
+      'غير متوفر حاليا',
+      'غير متوفر حاليا'
+    ]
+  },
+  {
+    id: 12,
+    title: 'برمجة',
+    description: 'غير متوفر حاليا',
+    icon: 'غير متوفر حاليا',
+    type: 'service',
+    subPoints: [
+      'غير متوفر حاليا',
+      'غير متوفر حاليا',
+      'غير متوفر حاليا',
+      'غير متوفر حاليا'
+    ]
+  },
+  {
+    id: 13,
+    title: 'جربوكسات',
+    description: 'غير متوفر حاليا',
+    icon: 'غير متوفر حاليا',
+    type: 'service',
+    subPoints: [
+      'غير متوفر حاليا',
+      'غير متوفر حاليا',
+      'غير متوفر حاليا',
+      'غير متوفر حاليا'
+    ]
   }
 ]
-  
-
 
 export const extraService1 = [
   'برامج الولاء والمكافآت',
@@ -96,4 +159,3 @@ export const extraService1 = [
   'خدمات المساعدة على الطريق',
   'خدمات الصيانة الدورية للمركبات التجارية'
 ]
-  

@@ -1,8 +1,8 @@
 import React from 'react'
 import { MotionDiv } from '@/components/shared/MotionDiv'
-import { XCardHeader } from './header/XCardHeader'
-import { XCardBody } from './body/XCardBody'
-import { XCardfooter } from './footer/XCardfooter'
+import XCardHeader from './header/XCardHeader'
+import XCardBody from './body/XCardBody'
+import XCardfooter from './footer/XCardfooter'
 const stagger = 0.15
 
 const variants = {
@@ -22,21 +22,12 @@ function ShowCard({
   counter,
   city,
   type,
-  dist
+  dist,
+  likeCount,
+  disLikeCount
 }) {
   return (
-    <MotionDiv
-      variants={variants}
-      initial='hidden'
-      animate='visible'
-      transition={{
-        delay: index * stagger,
-        ease: 'easeInOut',
-        duration: 0.5
-      }}
-      viewport={{ amount: 0 }}
-      className='relative flex h-full  min-h-[360px] w-full max-w-xs flex-col items-center justify-between overflow-hidden rounded-md border bg-card shadow-md hover:border-2 '
-    >
+    <div className='relative flex h-full  min-h-[360px] w-full max-w-xs flex-col items-center justify-between overflow-hidden rounded-md border bg-card shadow-md hover:border-2 '>
       <XCardHeader
         providerName={providerName}
         starCount={starCount}
@@ -44,18 +35,21 @@ function ShowCard({
         service={service}
         index={index}
         type={type}
+        likeCount={likeCount}
+        disLikeCount={disLikeCount}
         counter={counter}
         city={city}
         dist={dist}
       />
       <XCardBody
         image={image}
+        alt={providerName}
         description={description}
         carType={carType}
         service={service}
       />
       <XCardfooter id={id} />
-    </MotionDiv>
+    </div>
   )
 }
 

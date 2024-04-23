@@ -5,14 +5,16 @@ import Image from 'next/image'
 import { ServiceAction } from './ServiceAction'
 import Submit from '@/components/shared/Submit'
 import { Input } from '@/components/ui/input'
+import { AccordionComponent } from '@/components/shared/AccordionComponent'
 const dynamic = 'force-dynmic'
 async function page() {
   // true mean service not master
-  const serivces = await getAllMasterService(true)
+  const serivces = await getAllMasterService('service')
   return (
     <div className='flex h-[80vh] w-full flex-col  items-center gap-4 rounded-md bg-accent p-4'>
-      <Text>اضافة الانشطة</Text>
-      <NewSerivces serivcesCounter={serivces.length + 1} />
+      <AccordionComponent title={'اضافة صيانة'} icon='+'>
+        <NewSerivces serivcesCounter={serivces.length + 1} />
+      </AccordionComponent>
       <DisplaySerivces serivces={serivces} />
     </div>
   )

@@ -3,7 +3,7 @@ import { cn } from 'lib/utils'
 import { cva } from 'class-variance-authority'
 
 const textVariants = cva(
-  'text-balance text-foreground transition-colors font-cairo text-inherit ',
+  'flex items-center gap-1 text-balance text-foreground transition-colors font-cairo text-inherit ',
   {
     variants: {
       fontSize: {
@@ -32,11 +32,11 @@ const textVariants = cva(
 
 function Text({ children, fontSize, fontFamily, opacity, className }) {
   return (
-    <p
+    <div
       className={cn(textVariants({ fontSize, fontFamily, opacity, className }))}
     >
       {children}
-    </p>
+    </div>
   )
 }
 

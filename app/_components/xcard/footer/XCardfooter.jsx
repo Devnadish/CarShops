@@ -1,9 +1,10 @@
-import CardActionButton from "./CardActionButton";
+import CardActionButton from './CardActionButton'
 
-export const XCardfooter = ({id}) => {
+export const XCardfooter = ({ id }) => {
   return (
-    <div className="flex items-center justify-center w-full rounded-md">
+    <div className='flex w-full items-center justify-center rounded-md'>
       <CardActionButton providerId={id} />
     </div>
-  ) 
-};
+  )
+}
+export default XCardfooter

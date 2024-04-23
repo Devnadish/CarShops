@@ -1,17 +1,17 @@
-import { Accesory } from './Accesory';
-import { ImageX } from './ImageX';
-import { CarFix } from './CarFix';
+import { Accesory } from './Accesory'
+import { ImageX } from './ImageX'
+import { CarFix } from './CarFix'
 
-export function Detail({ image, carType }) {
+export function Detail({ image, carType, alt }) {
   return (
-    <div className='item-center flex w-full px-2'>
-      <div className='w-1/2'>
-        <ImageX image={image} />
+    <div className='item-start flex w-full justify-between gap-4 px-3'>
+      <div className='flex-grow'>
+        <ImageX image={image} alt={alt} />
       </div>
-      <div className='item-center flex items-center justify-between  w-1/2 flex-col gap-2'>
+      <div className='flex w-full flex-grow flex-col  items-start justify-start gap-2'>
         <CarFix carType={carType} />
         <Accesory />
       </div>
     </div>
-  );
+  )
 }

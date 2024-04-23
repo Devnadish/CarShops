@@ -14,24 +14,36 @@ datasource db {
 model provider {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   slug         String   @default("")
-  counter      Int      @default(0)
   providerName String   @unique
-  image        String   @default("")
+  coverImage   String   @default("")
   logo         String   @default("")
   heroSlogon   String   @default("")
   carType      String[]
   starCount    Int      @default(0)
   commentCount Int      @default(0)
+  likeCount    Int      @default(0)
+  disLikeCount Int      @default(0)
   service      String[]
-  facility     String[]
   description  String   @default("")
   detail       String   @default("")
   type         String   @default("")
   city         String   @default("")
   dist         String   @default("")
+  branchCount  Int      @default(0)
   userid       String   @default("")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model providerBranch {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  providerid String   @default("")
+  image      String   @default("")
+  lat        Float    @default(0)
+  lon        Float    @default(0)
+  userid     String   @default("")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 // porvider images with use in provider page 
@@ -45,15 +57,37 @@ model image {
   updatedAt  DateTime @updatedAt
 }
 
-// contains the service information provider with support Master service or subService
+model systemImage {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  image       String   @default("")
+  description String   @default("")
+  userid      String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// contains the main service from the system 
 model service {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  service     String   @default("")
+  description String   @default("")
+  logo        String   @default("")
+  type        String   @default("")
+  subPoints   String[]
+  userid      String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// contains the service information for each provider that support and like and dislike to speed up the query 
+model providerService {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  service_id Int   @default(0)
-  service    String   @default("")
-  detail     String   @default("")
-  image      String   @default("")
+  providerid String   @default("")
+  // service    String   @default("")
+  serviceid  String   @default("")
+  like       Int      @default(0)
+  dislike    Int      @default(0)
   userid     String   @default("")
-  isMaster   Boolean   @default(false)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
@@ -135,9 +169,9 @@ model user {
 // store all cars availbal in platform
 model Car {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  carid       Int   @default(0)
+  carid       Int      @default(0)
   name        String   @default("")
-  logo        String   @default("")
+  image       String   @default("")
   metaTag     String   @default("")
   history     String   @default("")
   userid      String   @default("")
@@ -173,5 +207,36 @@ model errors {
   error       String   @default("")
   systemError String   @default("")
   userid      String   @default("")
+  updatedDate DateTime @updatedAt
+}
+
+model country {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  country     String   @default("")
+  flag        String   @default("")
+  metaTag     String   @default("")
+  userid      String   @default("")
+  createdDate DateTime @default(now())
+  updatedDate DateTime @updatedAt
+}
+
+model city {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  countryId   String   @default("")
+  city        String   @default("")
+  metaTag     String   @default("")
+  userid      String   @default("")
+  createdDate DateTime @default(now())
+  updatedDate DateTime @updatedAt
+}
+
+model dist {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  countryId   String   @default("")
+  cityid      String   @default("")
+  dist        String   @default("")
+  metaTag     String   @default("")
+  userid      String   @default("")
+  createdDate DateTime @default(now())
   updatedDate DateTime @updatedAt
 }

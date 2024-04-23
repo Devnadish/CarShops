@@ -17,6 +17,11 @@ function MasterMenu() {
       <Link href={'/master/extraservice'} className={menuSytle}>
         <Text>الخدمات الاضافية</Text>
       </Link>
+      <Link href={'/master/autoaction'} className={menuSytle}>
+        <Text className={'border-r-4  border-yellow-300 px-3 text-purple-500'}>
+          اوامر ذاتية
+        </Text>
+      </Link>
     </div>
   )
 }
