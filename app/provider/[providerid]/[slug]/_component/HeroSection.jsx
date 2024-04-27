@@ -5,12 +5,18 @@ import { Button } from '@/components/ui/button'
 import SectionAnimation from '@/components/shared/SectionAnimation'
 import { CallIcon, EmailIcon, ShareIcon } from './ProviderIcons'
 import { WhatsappIcon } from '@/components/svg/Whatsapp'
-import { Facebook, Instagram, Tiktok, XTwitter, Youtube } from '@/components/svg/Socail'
+import {
+  Facebook,
+  Instagram,
+  Tiktok,
+  XTwitter,
+  Youtube
+} from '@/components/svg/Socail'
 const ctaMessage = 'تواصل معنا'
 
 function TextSide(props) {
   return (
-    <div className='flex    flex-col items-center gap-8   justify-center   '>
+    <div className='flex    flex-col items-center justify-center   gap-8   '>
       <ProviderName providerName={props.providerName} />
       <HeroSlogon heroSlogon={props.heroSlogon} />
       <CTA />
@@ -20,29 +26,30 @@ function TextSide(props) {
 
 function BackgroundImag() {
   return (
-    <div
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundImage: `url("/background.svg")`,
-        backgroundSize: 'cover',
-        opacity: 1,
-        zIndex: -1 // backgroundColor:"green"
-      }}
-    />
+    <div className='absolute left-0 top-0 -z-10   h-full w-full'>
+      <div className='relative left-0 top-0 -z-10   h-full w-full'>
+        <Image
+          src='/background.svg'
+          alt='background'
+          // fill
+          priority
+          width={300}
+          height={100}
+          size='(max-width:768px) 250px,400px '
+          className='w-full rounded-lg object-cover p-2'
+        />
+      </div>
+    </div>
   )
 }
 
 export const HeroSection = ({ heroSlogon, logo, providerName }) => {
   return (
     // <SectionAnimation>
-    <section className='relative flex max-h-[80vh]   w-full flex-col md:flex-row items-center justify-evenly rounded-md bg-secondary/50 py-4 '>
+    <section className='relative flex max-h-[80vh]   w-full flex-col items-center justify-evenly rounded-md bg-secondary/50 py-4 md:flex-row '>
       <TextSide heroSlogon={heroSlogon} providerName={providerName} />
       <HeroImage logo={logo} providerName={providerName} />
-      <BackgroundImag/>
+      <BackgroundImag />
     </section>
     // </SectionAnimation>
   )
@@ -50,7 +57,7 @@ export const HeroSection = ({ heroSlogon, logo, providerName }) => {
 
 export function ProviderName(props) {
   return (
-    <div className='flex w-fit self-start md:self-center  border-b-8 px-4 text-center text-xl font-bold shadow-lg md:text-4xl'>
+    <div className='flex w-fit self-start border-b-8  px-4 text-center text-xl font-bold shadow-lg md:self-center md:text-4xl'>
       <Text>{props.providerName}</Text>
     </div>
   )
@@ -70,7 +77,7 @@ export function HeroSlogon(props) {
 
 export function HeroImage(props) {
   return (
-    <div className='h-auto  w-full max-w-sm md:max-w-md p-6 '>
+    <div className='h-auto  w-full max-w-sm p-6 md:max-w-md '>
       <Image
         src={props.logo} // Handle missing logo
         alt={props.providerName}
@@ -91,7 +98,7 @@ export const CTA = () => {
       >
         <Text>{ctaMessage}</Text>
       </Button>
-      <div className='hidden md:flex items-center gap-4'>
+      <div className='hidden items-center gap-4 md:flex'>
         <Button size='icon' variant='ghost'>
           <ShareIcon className='size-6' />
         </Button>
@@ -123,8 +130,3 @@ export const CTA = () => {
     </div>
   )
 }
-
-
-
-
-

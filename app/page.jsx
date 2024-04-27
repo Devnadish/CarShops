@@ -1,4 +1,4 @@
-import { getCars } from '@/db/dbcars'
+import { getProviderList } from '@/db/providerList'
 import { Bar } from './_components/Bar'
 import ShowCard from './_components/xcard/ShowCard'
 import Counters from '@/components/hooks/Counters'
@@ -9,7 +9,12 @@ export const dynamic = 'force-dynamic'
 
 export default async function Home({ searchParams }) {
   const query = searchParams || ''
-  const { providers, pageCount, recordCount } = await getCars(1, query)
+  const userid = 'khalidnadish'
+  const { providers, pageCount, recordCount } = await getProviderList(
+    1,
+    query,
+    userid
+  )
   return (
     <main className=' relative flex   w-full max-w-5xl flex-col items-center justify-center gap-4'>
       <Counters records={recordCount} pages={pageCount} />
@@ -20,12 +25,14 @@ export default async function Home({ searchParams }) {
         {providers.map((provider, index) => (
           <ShowCard
             key={provider.id}
-            id={provider.id}
+            providerid={provider.id}
+            providerSlug={provider.slug}
             providerName={provider.providerName}
             starCount={provider.starCount}
             commentCount={provider.commentCount}
             likeCount={provider.likeCount}
             disLikeCount={provider.disLikeCount}
+            viewerCount={provider.viewerCount}
             service={provider.service}
             image={provider.coverImage}
             description={provider.description}
@@ -36,6 +43,7 @@ export default async function Home({ searchParams }) {
             dist={provider.dist}
             detail={provider.detail}
             index={index}
+            userid={userid}
           />
         ))}
 

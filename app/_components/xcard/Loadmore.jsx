@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useInView } from 'react-intersection-observer'
 import Image from 'next/image'
-import { getCars } from "@/db/dbcars"
+import { getProviderList } from '@/db/providerList'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import ShowCard from './ShowCard'
 import Text from '@/components/shared/Text'
@@ -16,12 +16,11 @@ function Loadmore({ query, pageCount }) {
   const { ref, inView } = useInView()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  
 
   const fetchNextPage = useCallback(async () => {
     if (page < pageCount) {
       const nextPage = page + 1
-      const { providers } = await getCars(nextPage, query)
+      const { providers } = await getProviderList(nextPage, query)
       setProviderData(prevBlogs => [...prevBlogs, ...providers])
       setPage(nextPage)
     }
@@ -43,20 +42,20 @@ function Loadmore({ query, pageCount }) {
       <div className='grid grid-cols-1 place-items-center gap-6 md:grid-cols-2 lg:grid-cols-3 '>
         {providerData.map((provider, index) => (
           <ShowCard
-          key={provider.id}
-          providerName={provider.providerName}
-          starCount={provider.starCount}
-          commentCount={provider.commentCount}
-          service={provider.service}
-          image={provider.image}
-          description={provider.description}
-          carType={provider.carType}
-          counter={provider.counter}
-          city={provider.city}
-          type={provider.type}
-          dist={provider.dist}
-          index={index}
-          id={provider.id}
+            key={provider.id}
+            providerName={provider.providerName}
+            starCount={provider.starCount}
+            commentCount={provider.commentCount}
+            service={provider.service}
+            image={provider.image}
+            description={provider.description}
+            carType={provider.carType}
+            counter={provider.counter}
+            city={provider.city}
+            type={provider.type}
+            dist={provider.dist}
+            index={index}
+            id={provider.id}
           />
         ))}
       </div>
@@ -66,7 +65,7 @@ function Loadmore({ query, pageCount }) {
         ref={ref}
       >
         {pageCount > 1 && <Spinner page={page} />}
-        {!pageCount  && <Nodata  carName={query.vechile} />}
+        {!pageCount && <Nodata carName={query.vechile} />}
       </div>
     </>
   )
@@ -88,19 +87,18 @@ const Spinner = () => {
   )
 }
 
-const Nodata = ({carName}) => {
-    return (
-      <div className='flex h-52 w-full max-w-sm flex-col items-center justify-center gap-4 rounded-md bg-yellow-300 '>
-        <TriangleAlert size={40} className='text-destructive' />
-        <span className='text-black'> {carName}</span>
-       
-        <Text>
-          <span className='text-black'>لا يوجد ورشة للسيارة المطلوبة</span>
-        </Text>
-        <Button className="bg-destructive">
-          <Text>تواصل معنا للبحث لك عن الورشة</Text>
-        </Button>
-      </div>
-    )
-  }
-  
+const Nodata = ({ carName }) => {
+  return (
+    <div className='flex h-52 w-full max-w-sm flex-col items-center justify-center gap-4 rounded-md bg-yellow-300 '>
+      <TriangleAlert size={40} className='text-destructive' />
+      <span className='text-black'> {carName}</span>
+
+      <Text>
+        <span className='text-black'>لا يوجد ورشة للسيارة المطلوبة</span>
+      </Text>
+      <Button className='bg-destructive'>
+        <Text>تواصل معنا للبحث لك عن الورشة</Text>
+      </Button>
+    </div>
+  )
+}

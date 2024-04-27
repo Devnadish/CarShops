@@ -22,7 +22,6 @@ function FakeData() {
     const city = await getAllCitis()
     const service = await getservice()
     const extraService = await getExtraservice()
-    console.log('🚀 ~ handleFake ~ extraService:', extraService)
     const cars = await getcars()
     const users = await getusers()
 

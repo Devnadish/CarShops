@@ -6,7 +6,7 @@ import {
   Loyalty,
   Muscle,
   RoadHelp
-} from '@/app/provider/[providerid]/_component/ProviderIcons'
+} from '@/app/provider/[providerid]/[slug]/_component/ProviderIcons'
 
 export const extraService = [
   {

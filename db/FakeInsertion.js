@@ -64,7 +64,6 @@ const commentGnerate = async (id, user) => {
   const service = await db.providerService.findMany({
     where: { providerid: id }
   })
-  console.log('🚀 ~ commentGnerate ~ service:', service)
 
   const numberOfImages = faker.number.int({ min: 2, max: 10 })
   for (let i = 0; i < numberOfImages; i++) {

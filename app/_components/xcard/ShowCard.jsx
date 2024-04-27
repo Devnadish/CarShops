@@ -10,7 +10,7 @@ const variants = {
   visible: { opacity: 1 }
 }
 function ShowCard({
-  id,
+  providerid,
   providerName,
   starCount,
   commentCount,
@@ -24,11 +24,15 @@ function ShowCard({
   type,
   dist,
   likeCount,
-  disLikeCount
+  disLikeCount,
+  viewerCount,
+  userid,
+  providerSlug
 }) {
   return (
     <div className='relative flex h-full  min-h-[360px] w-full max-w-xs flex-col items-center justify-between overflow-hidden rounded-md border bg-card shadow-md hover:border-2 '>
       <XCardHeader
+        providerId={providerid}
         providerName={providerName}
         starCount={starCount}
         commentCount={commentCount}
@@ -48,7 +52,12 @@ function ShowCard({
         carType={carType}
         service={service}
       />
-      <XCardfooter id={id} />
+      <XCardfooter
+        providerid={providerid}
+        viewerCount={viewerCount}
+        userid={userid}
+        providerSlug={providerSlug}
+      />
     </div>
   )
 }

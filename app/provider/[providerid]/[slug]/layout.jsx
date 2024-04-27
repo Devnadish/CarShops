@@ -6,6 +6,8 @@ export default async function providerLayout({
   params,
   children // will be a page or nested layout
 }) {
+  console.log(params)
+
   const { providerName, type } = await getPrviderData(params.providerid)
   if (!providerName)
     return (

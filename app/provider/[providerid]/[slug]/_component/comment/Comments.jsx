@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader } from '@/components/ui/sheet'
-import Text from '../../../../../components/shared/Text'
+import Text from '@/components/shared/Text'
 import { Separator } from '@/components/ui/separator'
 import Addcomment from './Addcomment'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -9,15 +9,12 @@ import { CommentAdd, CommentLock } from '@/components/svg/CommentOpenOrClose'
 
 function ProviderNameAndService(props) {
   return (
-      <div className='flex gap-2 items-center justify-center '>
-        <div className='opacity-60'>
-
-      {props.icon}
-        </div>
-        <Text opacity={'O70'} fontFamily='tajwal' >
-          {props.serviceName}
-        </Text>
-      </div>
+    <div className='flex items-center justify-center gap-2 '>
+      <div className='opacity-60'>{props.icon}</div>
+      <Text opacity={'O70'} fontFamily='tajwal'>
+        {props.serviceName}
+      </Text>
+    </div>
   )
 }
 
@@ -211,7 +208,6 @@ const commentData = [
   }
 ]
 
-
 function Comments({ open, setOpen, providerName, serviceName, icon }) {
   return (
     <Sheet open={open} onOpenChange={setOpen} className=' w-full'>
@@ -235,33 +231,43 @@ function Comments({ open, setOpen, providerName, serviceName, icon }) {
 export default Comments
 const CommentMsg = () => {
   return (
-    <ScrollArea className='w-full h-full' dir="rtl">
-      <div className=' flex w-full h-full justify-center items-center flex-col gap-4 ' style={{ padding: '15px 20px' }}>
-      {commentData.map(cmt => {
-        return (
-          <div key={cmt.id} className='flex items-center rounded-lg flex-col border p-1.5 gap-2'>
-            <CommentHeader  userName={cmt.user} stuts={cmt.isOpen} replayCount={cmt.replay.length} />
-            <Text>{cmt.comment}</Text>
-          </div>
-        )
-      })}
+    <ScrollArea className='h-full w-full' dir='rtl'>
+      <div
+        className=' flex h-full w-full flex-col items-center justify-center gap-4 '
+        style={{ padding: '15px 20px' }}
+      >
+        {commentData.map(cmt => {
+          return (
+            <div
+              key={cmt.id}
+              className='flex flex-col items-center gap-2 rounded-lg border p-1.5'
+            >
+              <CommentHeader
+                userName={cmt.user}
+                stuts={cmt.isOpen}
+                replayCount={cmt.replay.length}
+              />
+              <Text>{cmt.comment}</Text>
+            </div>
+          )
+        })}
       </div>
     </ScrollArea>
   )
 }
-const CommentHeader = ({date,  userName,  stuts,  replayCount}) => {
+const CommentHeader = ({ date, userName, stuts, replayCount }) => {
   return (
     <div className='flex h-8 w-full items-center justify-between rounded-lg border bg-secondary p-1.5'>
-      <Button size="sm" variant="outline" className="size-7 p-0 rounded-full">
+      <Button size='sm' variant='outline' className='size-7 rounded-full p-0'>
         {stuts ? (
-          <CommentAdd className='text-green-500 size-5' />
+          <CommentAdd className='size-5 text-green-500' />
         ) : (
-          <CommentLock className='text-red-500 size-5' />
+          <CommentLock className='size-5 text-red-500' />
         )}
       </Button>
-      <Text fontSize={"xs"} opacity={"O40"} >{userName}</Text>
+      <Text fontSize={'xs'} opacity={'O40'}>
+        {userName}
+      </Text>
     </div>
   )
 }
-
-

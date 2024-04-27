@@ -23,6 +23,7 @@ model provider {
   commentCount Int      @default(0)
   likeCount    Int      @default(0)
   disLikeCount Int      @default(0)
+  viewerCount  Int      @default(0)
   service      String[]
   description  String   @default("")
   detail       String   @default("")
@@ -152,20 +153,6 @@ model free {
   updatedAt  DateTime @updatedAt
 }
 
-// store provider and user cradintional free offers
-model user {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String   @default("")
-  mobile    String   @unique
-  email     String   @default("")
-  avatar    String   @default("")
-  password  String   @default("")
-  isBlocked Boolean  @default(false)
-  role      String   @default("")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 // store all cars availbal in platform
 model Car {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -239,4 +226,36 @@ model dist {
   userid      String   @default("")
   createdDate DateTime @default(now())
   updatedDate DateTime @updatedAt
+}
+
+model userAction {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  providerid String   @default("")
+  actionid   Int      @default(0)
+  userid     String   @default("")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// store provider and user cradintional free offers
+model user {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String   @default("")
+  email         String   @unique
+  image         String   @default("")
+  password      String   @default("")
+  isVerified    Boolean  @default(false)
+  VerifiedToken String   @default("")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model profile {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @default("")
+  mobile    String   @unique
+  isBlocked Boolean  @default(false)
+  role      String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

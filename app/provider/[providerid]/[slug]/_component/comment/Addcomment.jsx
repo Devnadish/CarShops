@@ -3,7 +3,7 @@ import Submit from '@/components/shared/Submit'
 import { Button } from '@/components/ui/button'
 import React, { useState } from 'react'
 import { AddComment } from '../ProviderIcons'
-import CommetInput from '@/app/provider/[providerid]/_component/comment/CommetInput'
+import CommetInput from '@/app/provider/[providerid]/[slug]/_component/comment/CommetInput'
 import { useMediaQuery } from '@react-hook/media-query'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import {
@@ -38,7 +38,7 @@ function Addcomment() {
 
 export default Addcomment
 
-function CommentBox({ open, setOpen, children   }) {
+function CommentBox({ open, setOpen, children }) {
   const isDesktop = useMediaQuery('(min-width: 768px)')
   if (isDesktop) {
     return (

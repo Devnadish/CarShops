@@ -1,6 +1,6 @@
 'use client'
 import DialogBox from '@/components/shared/DialogBox'
-import INPUT from '@/app/provider/[providerid]/_component/comment/CommetInput'
+// import INPUT from '@/app/provider/[providerid]/_component/comment/CommetInput'
 import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -20,9 +20,8 @@ function SearchProvider() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
-
   const handleSearch = () => {
-    const queryString = urlQuery('search', searchText+option);
+    const queryString = urlQuery('search', searchText + option)
     const updatedUrl = `${pathName}${queryString ? `?${queryString}` : ''}`
     router.push(updatedUrl)
   }
@@ -33,21 +32,29 @@ function SearchProvider() {
         onClick={() => {
           setOpen(true)
         }}
-        className='flex w-fit h-8 items-center justify-between rounded-full  '
+        className='flex h-8 w-fit items-center justify-between rounded-full  '
       >
         {/* <Text fontSize='xs' opacity={'opacity-35'}>
           بحث
         </Text> */}
         {/* <div className='flex h-8 items-center gap-3'> */}
-          <Search size={24} className='opacity-80' strokeWidth={1} />
+        <Search size={24} className='opacity-80' strokeWidth={1} />
         {/* </div> */}
       </Button>
       <DialogBox open={open} setOpen={setOpen}>
-        <form action={handleSearch} className='mx-auto flex w-[90%] flex-col items-center justify-center gap-4 '>
+        <form
+          action={handleSearch}
+          className='mx-auto flex w-[90%] flex-col items-center justify-center gap-4 '
+        >
           <FormSearch searchText={searchText} setSearchText={setSearchText} />
           <RadioGroupDemo option={option} setOption={setOption} />
 
-          <Submit title='بحث' icon={<Search />} color={'bg-secondary'} isDisabled={!searchText} />
+          <Submit
+            title='بحث'
+            icon={<Search />}
+            color={'bg-secondary'}
+            isDisabled={!searchText}
+          />
         </form>
       </DialogBox>
     </>
@@ -57,25 +64,26 @@ function SearchProvider() {
 export default SearchProvider
 
 const FormSearch = ({ searchText, setSearchText }) => {
-  const handlechange = (e) => {setSearchText(e.target.value)}
+  const handlechange = e => {
+    setSearchText(e.target.value)
+  }
   return (
     <INPUT
       value={searchText}
       icon={<Search strokeWidth={1} />}
       placeholder='ابحث عن.. '
       onChange={handlechange}
-
     />
   )
 }
 
-export function RadioGroupDemo({option, setOption}) {
+export function RadioGroupDemo({ option, setOption }) {
   return (
     <RadioGroup
       defaultValue='nadish0'
       className='mt-4 flex w-full items-center justify-evenly'
       dir='RTL'
-      onValueChange={(value) => setOption(value)}
+      onValueChange={value => setOption(value)}
     >
       <div className='flex items-center gap-2 space-x-2'>
         <RadioGroupItem value='nadish0' id='r1' />

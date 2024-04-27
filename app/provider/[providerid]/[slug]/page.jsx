@@ -9,11 +9,13 @@ import Link from 'node_modules/next/link'
 import { Heart, MessageCircleMore, Star } from '@/lib/icons'
 import { HeroSection } from './_component/HeroSection'
 import { Accessory } from './_component/Accessory'
+export const dynamic = 'force-dynamic'
 
-async function page({ params }) {
-  const provider = await providerData(params.providerid)
+// TODO: Rechack router Cache  when you come again to same prvider it come from the cash so the viewer counter not update
+async function page({ params, searchParams }) {
+  const provider = await providerData(params.providerid, searchParams.nadish)
   const {
-    logo="/logo.svg",
+    logo = '/logo.svg',
     providerName,
     heroSlogon,
     detail,
@@ -25,7 +27,7 @@ async function page({ params }) {
   const OPTIONS = {}
   return (
     <div className='flex w-[90%] flex-col items-center justify-center gap-4'>
-<Accessory  providerName={providerName}/>
+      {/* <Accessory providerName={providerName} /> */}
       <HeroSection
         heroSlogon={heroSlogon}
         logo={logo}
@@ -36,7 +38,7 @@ async function page({ params }) {
       <ImageSlider images={images} options={OPTIONS} />
 
       <CarFixing carType={carType} />
-      <Accessory  providerName={providerName}/>
+      <Accessory providerName={providerName} />
       <Location />
       <Contact />
       <Comments />
@@ -51,12 +53,31 @@ async function page({ params }) {
 }
 
 export default page
-const SideMenu=()=>{return(<div className=' fixed bottom-2 left-2  gap-2  z-50 flex items-center justify-evenly shadow- xl '>
-  <Link className='bg-secondary  size-12 flex items-center justify-center border rounded-lg ' href={"/"}><Star/></Link>
-  <Link className='bg-secondary   size-12 flex items-center justify-center border  rounded-lg' href={"/"}><MessageCircleMore/></Link>
-  <Link className=' bg-secondary  size-12 flex items-center justify-center border rounded-lg' href={"/"}><Heart/></Link>
-  {/* <Link href={"/"}><Com/></Link> */}
-</div>)}
+const SideMenu = () => {
+  return (
+    <div className=' shadow- xl fixed  bottom-2  left-2 z-50 flex items-center justify-evenly gap-2 '>
+      <Link
+        className='flex  size-12 items-center justify-center rounded-lg border bg-secondary '
+        href={'/'}
+      >
+        <Star />
+      </Link>
+      <Link
+        className='flex   size-12 items-center justify-center rounded-lg border  bg-secondary'
+        href={'/'}
+      >
+        <MessageCircleMore />
+      </Link>
+      <Link
+        className=' flex  size-12 items-center justify-center rounded-lg border bg-secondary'
+        href={'/'}
+      >
+        <Heart />
+      </Link>
+      {/* <Link href={"/"}><Com/></Link> */}
+    </div>
+  )
+}
 
 const Comments = () => {
   return (

@@ -1,10 +1,8 @@
 'use server'
 import db from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
-import ShowCard from '@/app/_components/xcard/ShowCard'
 
-
-export const getCars = async (pageNo, query) => {
+export const getProviderList = async (pageNo, query, userid) => {
   const limit = parseInt(process.env.PROVODER_PAGE_LIMIT)
   let providers = []
   let carCondition
@@ -46,6 +44,10 @@ export const getCars = async (pageNo, query) => {
     revalidatePath('/')
     return { providers: [], hasMore: false } // Return an object with empty providers and hasMore set to false
   }
+  const newProfiderWithLikeAndDislike = await updateProvidersWithUserActions(
+    providers,
+    userid
+  )
 
   revalidatePath('/')
 
@@ -58,19 +60,6 @@ export const getCars = async (pageNo, query) => {
     recordCount: totalProvidersCount
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const SortFunc = param => {
   let sortBy
@@ -127,29 +116,36 @@ const FilterFunc = filter => {
   })
 }
 
+const updateProvidersWithUserActions = async (providers, userid) => {
+  try {
+    const updatedProviders = []
+    for (const provider of providers) {
+      try {
+        const userAction = await db.userAction.findFirst({
+          where: {
+            providerid: provider.id,
+            userid,
+            actionid: { in: [1, 2] }
+          }
+        })
+        // ... rest of the logic using userAction
+        updatedProviders.push(
+          userAction?.actionid === 1
+            ? { ...provider, like: true }
+            : userAction?.actionid === 2
+              ? { ...provider, dislike: true }
+              : provider
+        )
+      } catch (error) {
+        console.error('Error fetching user action:', error)
+        // Handle the error appropriately (e.g., return a default value)
+      }
 
-
-
-
-// export const getCars = async (pageNo, query) => {
-  //   const limit = parseInt(process.env.PROVODER_PAGE_LIMIT)
-  //   let providers = []
-  //   let carCondition
-  //   let typeCondition
-   
-  //   // providers = await db.provider.findMany({
-  //   // })
-  
-    
-  //   revalidatePath('/')
-  
-  //   const totalProvidersCount = await db.provider.count({ where: whereCondition }) // Assuming there is a count method in your database provider
-  //   const pageCount = Math.ceil(totalProvidersCount / limit)
-  //   return {
-  //     providers: providers,
-  //     hasMore: true,
-  //     pageCount:5,
-  //     // recordCount: totalProvidersCount
-  //   }
-  // }
-  
+      // ... rest of the logic using userAction
+    }
+    return updatedProviders
+  } catch (error) {
+    console.error('Error in updateProvidersWithUserActions:', error)
+    throw error
+  }
+}
