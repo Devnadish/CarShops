@@ -1,35 +1,34 @@
 'use client'
 import React, { useState } from 'react'
-import Text from '../shared/Text'
-import { Button } from '../ui/button'
-import { KeyRound, Lock } from '@/lib/icons'
-import DialogBox from '../shared/DialogBox'
-import { Input } from '../ui/input'
-import { LognnForm } from './LognnForm'
+import Text from '@/components/shared/Text'
+import { KeyRound } from '@/lib/icons'
+import Link from 'next/link'
 
 function LoginMenu() {
   const [open, setOpen] = useState(false)
 
   return (
     <>
-      <Button
-        variant='outline'
-        className='flex items-center gap-1'
-        onClick={() => setOpen(true)}
+      <Link
+        // variant='outline'
+        href='/auth/signin'
+        className='flex items-center gap-1 rounded-lg border bg-white/30 p-2'
       >
         <Text fontFamily={'tajwal'} fontSize={'medium'}>
           دخول
         </Text>
-        <KeyRound />
-      </Button>
-      <DialogBox
+
+        <KeyRound strokeWidth={1} />
+      </Link>
+
+      {/* <DialogBox
         title={' سجل في المنصة واحصل علي هدايا وخصومات'}
         Description={' العديد من الهديا والخصومات'}
         open={open}
         setOpen={setOpen}
       >
         <LognnForm />
-      </DialogBox>
+      </DialogBox> */}
     </>
   )
 }

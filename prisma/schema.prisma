@@ -246,6 +246,8 @@ model user {
   password      String   @default("")
   isVerified    Boolean  @default(false)
   VerifiedToken String   @default("")
+  provider      String @default("")
+  role      String   @default("user")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -259,3 +261,14 @@ model profile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+
+ 
+ 
+
+ 
+ 
+  
+ 
+// Optional for WebAuthn support
+ 

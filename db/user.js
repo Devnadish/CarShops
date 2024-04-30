@@ -9,6 +9,7 @@ import {
 import db from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { Resend } from 'resend'
+import bcrypt from 'bcrypt'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -23,20 +24,36 @@ export const newUser = async data => {
   }
 
   const verifiedToken = Math.floor(1000 + Math.random() * 9000).toString()
-  const newData = { ...data, VerifiedToken: verifiedToken }
+  const hashpassword = bcrypt.hashSync(data.password, 8)
+  const newData = {
+    ...data,
+    VerifiedToken: verifiedToken,
+    password: hashpassword
+  }
 
-  const [newUser, mailSent] = await Promise.all([
-    db.user.create({ data: newData }),
-    sendEmail(newData)
-  ])
+  // console.log({ hashpassword })
 
-  if (mailSent && newUser) {
-    console.log(mailSent, newUser)
+  const newUser = await db.user.create({ data: newData })
+  if (newUser) {
+    console.log(newUser)
     return {
       code: 200,
       msg: code200msg
     }
   }
+
+  // const [newUser, mailSent] = await Promise.all([
+  //   db.user.create({ data: newData }),
+  //   sendEmail(newData)
+  // ])
+
+  // if (mailSent && newUser) {
+  //   console.log(mailSent, newUser)
+  //   return {
+  //     code: 200,
+  //     msg: code200msg
+  //   }
+  // }
 
   return {
     code: 400,
@@ -72,9 +89,7 @@ export const sendEmail = async activationCode => {
 //       <p>The CarFriend Team</p>
 
 export const activationsUser = async data => {
-  console.log(data)
   const userExists = await db.user.findFirst({ where: { email: data.email } })
-  console.log(userExists)
   if (!userExists) {
     return {
       code: 401,

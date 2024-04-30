@@ -5,28 +5,35 @@ import { Button } from '@/components/ui/button'
 import { RegisterOutline } from '@/components/svg/Register'
 import SideBox from '@/components/shared/SideBox'
 import InputWithIcon from '@/components/shared/InputWithIcon'
-import { Check, Image, Lock, Mail, Smile, User } from '@/lib/icons'
+import { Check, Lock, Mail, User } from '@/lib/icons'
 
 import Submit from '@/components/shared/Submit'
 import { newUser } from '@/db/user'
 import { Notify } from '@/lib/notify'
-import { OTPDisgits } from './OTPDisgits'
 import { Important } from '@/components/svg/Important'
 import DialogBox from '@/components/shared/DialogBox'
 import ActivationForm from './ActivationForm'
+import ImageUploader from '@/components/shared/image/ImageUploader'
+import UploadCloudinary from '@/components/shared/image/UploadCloudinary'
+import {
+  UploadAvatar,
+  UploadToCloudnary,
+  getSignature,
+  uploadImagex
+} from '@/db/imageDb'
 
 export function Register() {
   const [openRegister, setOpenRegister] = useState(false)
-  const [openActivation, setOpenActivation] = useState(false)
+
   return (
-    <div className='flex flex-col items-center gap-4'>
+    <div className='flex w-full flex-col items-center gap-4'>
       {/* <Text fontFamily={'tajwal'} fontSize={'medium'}>
         سجل في المنصة واحصل علي هدايا وخصومات
       </Text> */}
-      <div className='flex w-full items-center justify-around gap-4'>
+      <div className='flex w-[80%]  items-center justify-around gap-4 self-start'>
         <Button
           variant='outline'
-          className='flex items-center gap-4'
+          className='flex w-full items-center gap-4'
           onClick={() => {
             setOpenRegister(true)
           }}
@@ -36,39 +43,61 @@ export function Register() {
             تسجيل
           </Text>
         </Button>
-        <Button
-          variant='outline'
-          className='flex items-center gap-4 bg-blue-600 '
-          onClick={() => {
-            setOpenActivation(true)
-          }}
-        >
-          <Smile className='size-6' />
-          <Text fontFamily={'tajwal'} fontSize={'medium'}>
-            تنشيظ الحساب
-          </Text>
-        </Button>
       </div>
       <SideBox open={openRegister} setOpen={setOpenRegister}>
         <RegisterForm />
       </SideBox>
-      <DialogBox open={openActivation} setOpen={setOpenActivation}>
-        <ActivationForm />
-      </DialogBox>
     </div>
   )
 }
 
 export const RegisterForm = () => {
   const [register, setOpenRegister] = useState(false)
+  const [profileImage, setProfileImage] = useState([])
+
+  const upload = async () => {
+    console.log('🚀 ~ newUser ~ imageId:', profileImage)
+    const imageId = await UploadAvatar(profileImage[0])
+    console.log('🚀 ~ newUser ~ imageId:', imageId)
+  }
+
+  async function UploadAvatar(file) {
+    // carfirendUserAvatar
+    const { timestamp, signature } = await getSignature('nextUsrAvatar')
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('api_key', process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY)
+    formData.append('signature', signature)
+    formData.append('timestamp', timestamp)
+    formData.append('folder', 'nextUserAvatar')
+    console.log(formData)
+    const endpoint = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL
+    const data = await fetch(endpoint, {
+      method: 'POST',
+      body: formData
+    }).then(res => res.json())
+
+    // write to database using server actions for each file
+    console.log('🚀 ~ UploadAvatar ~ data:', data)
+    const imageId = await UploadToCloudnary({
+      version: data?.version,
+      signature: data?.signature,
+      public_id: data?.public_id
+    })
+    console.log({ imageId })
+    //  }
+  }
+
   const handleNewUser = async formData => {
     const data = {
       name: formData.get('name'),
       email: formData.get('email'),
-      image: formData.get('image')
+      password: formData.get('password'),
+      image: '/carlogo/chevrolet-logo.svg'
+      // image: imageId
     }
+    console.log(profileImage)
     const NewUser = await newUser(data)
-    console.log(NewUser.code)
     if (NewUser.code === 400) {
       return Notify(NewUser.msg, 'error', 'خلل')
     }
@@ -89,6 +118,24 @@ export const RegisterForm = () => {
         action={handleNewUser}
         className='flex w-full flex-col items-center justify-center gap-4 '
       >
+        <div className='flex  items-center justify-center '>
+          <UploadCloudinary
+            name={'image'}
+            files={profileImage}
+            setFiles={setProfileImage}
+          />
+          <Button
+            type='button'
+            onClick={() => {
+              upload()
+            }}
+          ></Button>
+          {/* <ImageUploader
+            files={profileImage}
+            setFiles={setProfileImage}
+            title='صورة الملف'
+          /> */}
+        </div>
         <InputWithIcon
           placeholder='الاسم'
           name='name'
@@ -100,10 +147,16 @@ export const RegisterForm = () => {
           icon={<Mail strokeWidth={1} />}
         />
         <InputWithIcon
+          placeholder='كلمة السر'
+          name='password'
+          icon={<Lock strokeWidth={1} />}
+        />
+
+        {/* <InputWithIcon
           placeholder='الصورة'
           name='image'
           icon={<Image strokeWidth={1} />}
-        />
+        /> */}
         <Submit
           title='تسجيل'
           icon={<Check className='text-primary' />}

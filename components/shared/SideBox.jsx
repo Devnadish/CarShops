@@ -2,21 +2,19 @@ import React from 'react'
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
-  SheetTitle
+  SheetFooter
 } from '@/components/ui/sheet'
 
-function SideBox({ open, setOpen, children, title = '', description = '' }) {
+function SideBox({ open, setOpen, children, footer, header }) {
   return (
     <Sheet open={open} onOpenChange={setOpen} className=' w-full'>
-      <SheetContent className='flex min-w-[70%] flex-col justify-between'>
+      <SheetContent className='flex  flex-col justify-between'>
         <SheetHeader className='flex w-full items-center  '>
-          {title && <SheetTitle>{title}</SheetTitle>}
-          {description && <SheetDescription>{description}</SheetDescription>}
-
-          {children}
+          {header}
         </SheetHeader>
+        {children}
+        <SheetFooter>{footer}</SheetFooter>
       </SheetContent>
     </Sheet>
   )

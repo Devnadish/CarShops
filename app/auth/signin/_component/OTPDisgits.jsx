@@ -6,8 +6,8 @@ import {
   InputOTPSeparator,
   InputOTPSlot
 } from '@/components/ui/input-otp'
-import { Button } from '../ui/button'
-import Text from '../shared/Text'
+import { Button } from '../../../../components/ui/button'
+import Text from '../../../../components/shared/Text'
 import { Smile } from '@/lib/icons'
 
 export function OTPDisgits({ value, setValue }) {
