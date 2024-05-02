@@ -27,7 +27,8 @@ function ShowCard({
   disLikeCount,
   viewerCount,
   userid,
-  providerSlug
+  providerSlug,
+  session
 }) {
   return (
     <div className='relative flex h-full  min-h-[360px] w-full max-w-xs flex-col items-center justify-between overflow-hidden rounded-md border bg-card shadow-md hover:border-2 '>
@@ -44,6 +45,7 @@ function ShowCard({
         counter={counter}
         city={city}
         dist={dist}
+        session={session}
       />
       <XCardBody
         image={image}

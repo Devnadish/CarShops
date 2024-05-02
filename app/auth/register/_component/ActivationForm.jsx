@@ -18,40 +18,23 @@ const MySwal = withReactContent(Swal)
 function ActivationForm() {
   const [openActivation, setOpenActivation] = useState(false)
 
-  const fireAlert = () => {
-    Swal.fire({
-      title: 'اهمية تنشيط الحساب',
-      icon: 'question',
-      iconHtml: '؟',
-      confirmButtonText: 'نعم',
-      cancelButtonText: 'لا',
-      showCloseButton: true
-    })
-  }
-
   return (
-    <div className='mt-2 flex w-full items-center gap-4'>
+    <>
       <Button
         variant='outline'
-        className=' flex w-full items-center gap-4 bg-blue-600 '
+        className='fixed bottom-[50%] left-0 flex  animate-pulse  items-center bg-secondary hover:bg-primary'
+        size='small'
         onClick={() => {
           setOpenActivation(true)
         }}
       >
-        {/* <Smile className='size-6' /> */}
-        <Verifyed className='size-8' />
-        <Text fontFamily={'tajwal'} fontSize={'medium'}>
-          تنشيظ الحساب
-        </Text>
-      </Button>
-      <Button variant='outline' onClick={() => fireAlert()}>
-        <ThinkingIcon1 className='size-6' />
+        <Verifyed className='size-10' />
       </Button>
 
       <DialogBox open={openActivation} setOpen={setOpenActivation}>
         <CreateActivationForm />
       </DialogBox>
-    </div>
+    </>
   )
 }
 
@@ -75,9 +58,27 @@ const CreateActivationForm = () => {
       Notify(result.msg, 'error', 'الرمز')
     }
   }
+  const fireAlert = () => {
+    // TODO: problem when close is called
+    Swal.fire({
+      title: 'اهمية تنشيط الحساب',
+      icon: 'question',
+      iconHtml: '؟',
+      confirmButtonText: 'نعم',
+      cancelButtonText: 'لا',
+      showCloseButton: true,
+      allowOutsideClick: false,
+      returnFocus: true
+    })
+  }
   return (
     <div className='flex w-full max-w-xs flex-col items-center justify-center gap-4'>
-      <Lock size={25} />
+      <div className='flex items-center gap-8'>
+        <Lock size={25} />
+        <Button variant='outline' onClick={() => fireAlert()} type='buttonss'>
+          <ThinkingIcon1 className='size-6 opacity-40' />
+        </Button>
+      </div>
       <Text fontSize={'large'}>تنشيط الحساب</Text>
       <form
         action={handleActivation}

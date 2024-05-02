@@ -11,14 +11,14 @@ import {
   SheetTrigger
 } from '@/components/ui/sheet'
 import MainMenu from './MainMenu'
-import ThemeSwitch from '../shared/ThemeSwitch'
-import Text from '../shared/Text'
+import ThemeSwitch from '../../shared/ThemeSwitch'
+import Text from '../../shared/Text'
 
 function BurgerMenu() {
   return (
-    <Sheet className="w-full">
+    <Sheet className='w-[20%]'>
       <SheetTrigger asChild>
-        <Menu className="opacity-55"/>
+        <Menu className=' flex  items-center  rounded border border-white   opacity-80 md:hidden' />
       </SheetTrigger>
       <SheetContent className='flex flex-col justify-between'>
         <SheetHeader className='flex w-full flex-row items-center justify-center'>
@@ -29,7 +29,7 @@ function BurgerMenu() {
         <div className='h-full  items-start'>
           <MainMenu />
         </div>
-        <SheetFooter className='flex w-full justify-between flex-row items-center'>
+        <SheetFooter className='flex w-full flex-row items-center justify-between'>
           <Button variant='outline' className='flex h-9 items-center gap-2'>
             <LogOut strokeWidth={1} size={18} />
             <Text>تسجيل خروج</Text>

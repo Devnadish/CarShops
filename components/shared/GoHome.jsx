@@ -4,7 +4,11 @@ import Link from 'next/link'
 
 function GoHome() {
   return (
-    <Link href="/">  <Home  className="size-5 opacity-55" /></Link>
+    <div className='mr-2  px-2 lg:hidden'>
+      <Link href='/'>
+        <Home className='size-5 opacity-55' />
+      </Link>
+    </div>
   )
 }
 

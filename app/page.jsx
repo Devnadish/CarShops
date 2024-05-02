@@ -5,11 +5,12 @@ import Counters from '@/components/hooks/Counters'
 import Loadmore from './_components/xcard/Loadmore'
 import FilterDescriptor from './_components/FilterDescriptor'
 import { getServerSession } from 'next-auth'
+import { options } from 'authentication/options'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home({ searchParams }) {
-  const session = await getServerSession()
+  const session = await getServerSession(options)
   const query = searchParams || ''
   const userid = 'khalidnadish'
   const { providers, pageCount, recordCount } = await getProviderList(
@@ -46,6 +47,7 @@ export default async function Home({ searchParams }) {
             detail={provider.detail}
             index={index}
             userid={userid}
+            session={session}
           />
         ))}
 

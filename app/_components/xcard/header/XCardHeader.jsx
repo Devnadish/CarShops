@@ -11,7 +11,8 @@ const XCardHeader = ({
   city,
   likeCount,
   disLikeCount,
-  providerId
+  providerId,
+  session
 }) => {
   return (
     <div className='flex w-full flex-col items-center justify-between gap-1 bg-secondary  px-2 py-2'>
@@ -22,6 +23,7 @@ const XCardHeader = ({
         commentCount={commentCount}
         type={type}
         providerId={providerId}
+        session={session}
       />
 
       <div className='flex w-full  items-center  justify-between  '>
@@ -44,7 +46,8 @@ const CardBar = ({
   starCount,
   commentCount,
   type,
-  providerId
+  providerId,
+  session
 }) => {
   return (
     <div className='flex h-9 w-full items-center justify-between  '>
@@ -55,6 +58,7 @@ const CardBar = ({
         likeCount={likeCount}
         disLikeCount={disLikeCount}
         providerId={providerId}
+        session={session}
       />
     </div>
   )

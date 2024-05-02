@@ -1,22 +1,21 @@
-"use client"
+'use client'
 import React from 'react'
-import DropMenu from '../shared/DropMenu'
+import DropMenu from '../../shared/DropMenu'
 import SearchProvider from '@/app/_components/SearchProvider'
 import { carLogos } from '@/constant/carLogo'
 import { Car } from '@/lib/icons'
-import { Button } from '../ui/button'
-import DropMenuMobile from '../shared/DropMenuMobile'
-import PageCounter from '../shared/PageCounter'
+import { Button } from '../../ui/button'
+import DropMenuMobile from '../../shared/DropMenuMobile'
+import PageCounter from '../../shared/PageCounter'
 import { usePathname } from 'next/navigation'
 
-
-function  Footer() {
-  const pathName=usePathname()
-  if(pathName.startsWith('/provider/')) {
-   return;
-}
+function Footer() {
+  const pathName = usePathname()
+  if (pathName.startsWith('/provider/')) {
+    return
+  }
   return (
-    <div className='fixed bottom-0 flex h-[60px] w-full items-center px-2  gap-4 bg-accent md:hidden  '>
+    <div className='fixed bottom-0 flex h-[60px] w-full items-center gap-4  bg-accent px-2 md:hidden  '>
       <DropMenuMobile
         frameworks={carLogos}
         label='اختار  سيارتك'
@@ -25,15 +24,14 @@ function  Footer() {
         noDataMessage='لا توجد سيارتك'
       />
       <div className='flex items-center gap-4'>
-      <SearchProvider />
-      <PageCounter/>
+        <SearchProvider />
+        <PageCounter />
       </div>
       {/* <span className='text-xs opacity-25'>
           {recordCount ? recordCount + '/' + pageCount : 0}
         </span> */}
-      
     </div>
   )
 }
 
-export default  Footer
+export default Footer

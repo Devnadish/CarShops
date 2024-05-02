@@ -90,25 +90,6 @@ export const options = {
       // Optional: Customize user data before saving
       const newUser = { ...user, providerAccountId: account.id }
       console.log(account.provider)
-      // console.log({ newUser })
-
-      // try {
-      //   // Create a new user or update existing based on provider account ID
-      //   await clientPromise.then(async (mongoClient) => {
-      //     const db = mongoClient.db();
-      //     const users = db.collection("users");
-
-      //     const existingUser = await users.findOne({ providerAccountId: newUser.providerAccountId });
-      //     if (!existingUser) {
-      //       await users.insertOne(newUser);
-      //     } else {
-      //       // Update existing user if needed (optional)
-      //     }
-      //   });
-      // } catch (error) {
-      //   console.error("Error saving user:", error);
-      //   return null; // Return null to prevent session creation on error
-      // }
 
       return true
     }
