@@ -1,8 +1,9 @@
 import React from 'react'
-import ShowCard from '@/app/_components/xcard/ShowCard'
+
 import { SectionTitle } from '@/components/shared/SectionTitle'
 import { Dislike } from '@/components/svg/LikeAndDislike'
 import { getUserActions } from '@/db/utlDb'
+import NewCard from '@/app/_components/card/NewCard'
 
 export async function page({ params }) {
   const favorateProvider = await getUserActions(params.userid, 2)
@@ -16,29 +17,7 @@ export async function page({ params }) {
 
       <div className='flex w-full  flex-wrap  items-center justify-center  gap-4 '>
         {favorateProvider.map((provider, index) => (
-          <ShowCard
-            key={provider.id}
-            providerid={provider.id}
-            providerSlug={provider.slug}
-            providerName={provider.providerName}
-            starCount={provider.starCount}
-            commentCount={provider.commentCount}
-            likeCount={provider.likeCount}
-            disLikeCount={provider.disLikeCount}
-            viewerCount={provider.viewerCount}
-            service={provider.service}
-            image={provider.coverImage}
-            description={provider.description}
-            carType={provider.carType}
-            counter={provider.counter}
-            city={provider.city}
-            type={provider.type}
-            dist={provider.dist}
-            detail={provider.detail}
-            index={index}
-            // userid={userid}
-            // session={session}
-          />
+          <NewCard key={provider.id} provider={provider} />
         ))}
       </div>
     </div>

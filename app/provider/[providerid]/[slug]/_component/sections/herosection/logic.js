@@ -6,8 +6,8 @@ import { SubSpinner } from '@/components/shared/Spinner'
 import { Dislike, Like } from '@/components/svg/LikeAndDislike'
 import { Button } from '@/components/ui/button'
 import { likeAction } from '@/db/_providerDisLike'
-import { DislikeAction } from '@/components/useractions/db/providerLike'
-import { StarAction } from '@/components/useractions/db/providerStarIt'
+// import { DislikeAction } from '@/components/useractions/db/providerLike'
+// import { StarAction } from '@/components/useractions/db/providerStarIt'
 
 export {
   Link,
@@ -37,20 +37,20 @@ export const handleLike = async (providerId, session, setLikeisLoading) => {
 
   return
 }
-export const handleDisLike = async (
-  providerId,
-  session,
-  setDisLikeisLoading
-) => {
-  if (session === null) {
-    return Notify('Not Register', 'error', 'error')
-  }
-  if (!session?.user?.isVerified) {
-    return Notify('Not Authenticatit Acount', 'info', 'info')
-  }
-  // ----------------
-  setDisLikeisLoading(true)
-  await DislikeAction(providerId, session?.user?.id)
-  setDisLikeisLoading(false)
-  // ----------------
-}
+// export const handleDisLike = async (
+//   providerId,
+//   session,
+//   setDisLikeisLoading
+// ) => {
+//   if (session === null) {
+//     return Notify('Not Register', 'error', 'error')
+//   }
+//   if (!session?.user?.isVerified) {
+//     return Notify('Not Authenticatit Acount', 'info', 'info')
+//   }
+//   // ----------------
+//   setDisLikeisLoading(true)
+//   await DislikeAction(providerId, session?.user?.id)
+//   setDisLikeisLoading(false)
+//   // ----------------
+// }

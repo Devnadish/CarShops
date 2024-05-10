@@ -3,31 +3,6 @@ import db from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { removeDisLikeAction } from './provideDisLike'
 
-// code defination
-// 1-like
-// 2-dislike
-
-// export const DislikeAction = async (providerid, userid) => {
-//   const existingRecord = await db.userAction.findFirst({
-//     where: {
-//       userid: userid,
-//       providerid: providerid,
-//       actionid: 2
-//     }
-//   })
-
-//   if (existingRecord === null) {
-//     await addDisLlikeAction(providerid, userid, 2)
-//     await IncreaseDislLikeProviderCounter(providerid)
-//   } else {
-//     await removeLikeAction(existingRecord.id)
-//     await decraseDisLikeProviderCounter(providerid)
-//   }
-
-//   revalidatePath('/')
-//   return { msg: 'done' }
-// }
-
 export const LikeON = async (providerid, userid) => {
   try {
     await Promise.all([
