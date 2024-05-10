@@ -10,6 +10,7 @@ import {
 import Text from '@/components/shared/Text'
 import { Notify } from '@/lib/notify'
 import Spinner, { SubSpinner } from '@/components/shared/Spinner'
+import { fakeMailing } from '@/db/FakeInsertion'
 
 export const AutoInsert = () => {
   return (
@@ -18,6 +19,7 @@ export const AutoInsert = () => {
       <InserService />
       <InserProviderType />
       <Insertcountry /> <InsertCity /> <InsertDist /> <InsertUser />
+      <InsertMail />
     </div>
   )
 }
@@ -166,6 +168,28 @@ const InsertUser = () => {
         +
       </Button>
       <Text fontSize={'small'}>مستخدمين</Text>
+    </div>
+  )
+}
+const InsertMail = () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const handleAtuoInsert = async () => {
+    setIsLoading(true)
+    await fakeMailing()
+    Notify('Job Done', 'info', 'Insert Cars')
+    setIsLoading(false)
+  }
+  return (
+    <div className=' flex h-28 w-fit flex-grow flex-col items-center justify-center gap-2 rounded-lg border px-2 '>
+      <Button
+        variant='outline'
+        size='sm'
+        className=' text-xl'
+        onClick={() => handleAtuoInsert()}
+      >
+        +
+      </Button>
+      <Text fontSize={'small'}>mails</Text>
     </div>
   )
 }

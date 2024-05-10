@@ -28,7 +28,7 @@ export function DropDownFilter({ icon, menu, title }) {
   return (
     <DropdownMenu dir='rtl'>
       <DropdownMenuTrigger asChild>
-        <Button className='size-6 p-0 outline-none' variant='ghost'>
+        <Button variant='ghost' size='sm' className='    hover:bg-primary'>
           {icon}
         </Button>
       </DropdownMenuTrigger>
@@ -53,19 +53,31 @@ export function DropDownFilter({ icon, menu, title }) {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem  onClick={() => handleChange('type', 'center')} className='flex items-center gap-4 hover:bg-secondary'>
+        <DropdownMenuItem
+          onClick={() => handleChange('type', 'center')}
+          className='flex items-center gap-4 hover:bg-secondary'
+        >
           <WorkShopCenterSvg className='size-4 text-foreground' />
           <Text> مراكز الصيانه</Text>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleChange('type', 'workshop')} className='flex items-center gap-4 hover:bg-secondary'>
+        <DropdownMenuItem
+          onClick={() => handleChange('type', 'workshop')}
+          className='flex items-center gap-4 hover:bg-secondary'
+        >
           <WorkshopSVG className='size-4 text-foreground' />
           <Text> ورش الصيانة</Text>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleChange('type', 'man')} className='flex items-center gap-4 hover:bg-secondary'>
+        <DropdownMenuItem
+          onClick={() => handleChange('type', 'man')}
+          className='flex items-center gap-4 hover:bg-secondary'
+        >
           <MechancalMan className='size-4 text-foreground' />
           <Text> الافراد</Text>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleChange('type', 'all')} className='flex items-center gap-4 hover:bg-secondary'>
+        <DropdownMenuItem
+          onClick={() => handleChange('type', 'all')}
+          className='flex items-center gap-4 hover:bg-secondary'
+        >
           <Star className='size-4 text-foreground' />
           <Text> الكل</Text>
         </DropdownMenuItem>

@@ -1,9 +1,15 @@
 import React from 'react'
 import Text from '@/components/shared/Text'
-import { BotMessageSquare, Heart, Lock, MessageCircleMore } from '@/lib/icons'
-import { Like } from '@/components/svg/LikeAndDislike'
+import {
+  BotMessageSquare,
+  Heart,
+  HeartHandshake,
+  Lock,
+  MessageCircleMore,
+  Star
+} from '@/lib/icons'
+import { Like, Dislike } from '@/components/svg/LikeAndDislike'
 import { SendService } from '@/components/svg/SendService'
-import ThemeSwitch from '@/components/shared/ThemeSwitch'
 import { ItemLink } from '@/components/menu/usermenu/ItemLink'
 import { SelectCity } from './SelectCity'
 
@@ -11,15 +17,40 @@ export function UserMenuBody({ isVerified, userid, setOpen }) {
   return (
     <>
       <div
-        className='relative flex flex-grow flex-col items-start   gap-4'
+        className='relative flex flex-grow flex-col items-start   gap-1'
         name='header'
       >
         <ItemLink
-          href={`/user/favorite/${userid}`}
-          text='المفضلة'
-          icon={<Heart size={20} strokeWidth={1} className='text-foreground' />}
+          href={`/user/stars/${userid}`}
+          text='النجوم'
+          icon={<Star size={20} strokeWidth={1} className='text-foreground' />}
           setOpen={setOpen}
         />
+        <ItemLink
+          href={`/user/favorite/${userid}`}
+          text='المفضلة'
+          icon={
+            <HeartHandshake
+              size={20}
+              strokeWidth={1}
+              className='text-foreground'
+            />
+          }
+          setOpen={setOpen}
+        />
+        <ItemLink
+          href={`/user/like/${userid}`}
+          text='إعجاب '
+          icon={<Like />}
+          setOpen={setOpen}
+        />
+        <ItemLink
+          href={`/user/dislike/${userid}`}
+          text=' عدم إعجاب'
+          icon={<Dislike />}
+          setOpen={setOpen}
+        />
+
         <ItemLink
           href={`/user/conslntent/${userid}`}
           text='استشارة'
@@ -32,12 +63,7 @@ export function UserMenuBody({ isVerified, userid, setOpen }) {
             />
           }
         />
-        <ItemLink
-          href={`/user/reaction/${userid}`}
-          text='إعجاب / عدم إعجاب'
-          icon={<Like />}
-          setOpen={setOpen}
-        />
+
         <ItemLink
           href={`/user/comments/${userid}`}
           text='التعليقات'

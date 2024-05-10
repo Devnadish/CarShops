@@ -31,11 +31,8 @@ export const newUser = async data => {
     password: hashpassword
   }
 
-  // console.log({ hashpassword })
-
   const newUser = await db.user.create({ data: newData })
   if (newUser) {
-    console.log(newUser)
     return {
       code: 200,
       msg: code200msg
@@ -48,7 +45,6 @@ export const newUser = async data => {
   // ])
 
   // if (mailSent && newUser) {
-  //   console.log(mailSent, newUser)
   //   return {
   //     code: 200,
   //     msg: code200msg
@@ -70,7 +66,6 @@ export const sendEmail = async activationCode => {
       subject: 'تفعيل حسابك CarFriend',
       html: htmlMsg(activationCode.VerifiedToken, activationCode.name)
     })
-    // console.log({ mailID: data })
     return data
   } catch (error) {
     return error

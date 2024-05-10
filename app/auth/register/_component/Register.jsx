@@ -56,9 +56,7 @@ export const RegisterForm = () => {
   const [profileImage, setProfileImage] = useState([])
 
   const upload = async () => {
-    console.log('🚀 ~ newUser ~ imageId:', profileImage)
     const imageId = await UploadAvatar(profileImage[0])
-    console.log('🚀 ~ newUser ~ imageId:', imageId)
   }
 
   async function UploadAvatar(file) {
@@ -70,7 +68,6 @@ export const RegisterForm = () => {
     formData.append('signature', signature)
     formData.append('timestamp', timestamp)
     formData.append('folder', 'nextUserAvatar')
-    console.log(formData)
     const endpoint = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL
     const data = await fetch(endpoint, {
       method: 'POST',
@@ -78,13 +75,11 @@ export const RegisterForm = () => {
     }).then(res => res.json())
 
     // write to database using server actions for each file
-    console.log('🚀 ~ UploadAvatar ~ data:', data)
     const imageId = await UploadToCloudnary({
       version: data?.version,
       signature: data?.signature,
       public_id: data?.public_id
     })
-    console.log({ imageId })
     //  }
   }
 
@@ -96,7 +91,6 @@ export const RegisterForm = () => {
       image: '/carlogo/chevrolet-logo.svg'
       // image: imageId
     }
-    console.log(profileImage)
     const NewUser = await newUser(data)
     if (NewUser.code === 400) {
       return Notify(NewUser.msg, 'error', 'خلل')

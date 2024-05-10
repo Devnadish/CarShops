@@ -53,7 +53,7 @@ function DialogBox({ open, setOpen, children, title, Description }) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerContent>
-        <div className='mx-auto max-w-sm p-4 '>{children}</div>
+        <div className='mx-auto w-full max-w-sm p-2 '>{children}</div>
         <DrawerFooter className='pt-2'>
           <DrawerClose asChild>
             <Button variant='outline'>Cancel</Button>

@@ -9,7 +9,15 @@ const providerBranch = async (id, branchCount) => {
       providerid: id, // Ensure this matches your database field name
       image: faker.image.avatar(),
       lat: faker.location.latitude({ max: 10, min: -10, precision: 5 }),
-      lon: faker.location.longitude({ max: 10, min: -10, precision: 5 }),
+      lan: faker.location.longitude({ max: 10, min: -10, precision: 5 }),
+      branchName: fakerAR.name.fullName(),
+      sat: '9:00 am To 12:00 pm',
+      sun: '9:00 am To 12:00 pm',
+      mon: '9:00 am To 12:00 pm',
+      tue: '9:00 am To 12:00 pm',
+      wed: '9:00 am To 12:00 pm',
+      thu: '9:00 am To 12:00 pm',
+      fri: '9:00 am To 12:00 pm',
       userid: 'khalidnadish'
     }
     await db.providerBranch.create({ data: image })
@@ -23,9 +31,15 @@ const serviceProvierGnerate = async (id, serviceid) => {
       providerid: id, // Ensure this matches your database field name
       userid: 'khalidnadish',
       // service: '',
+      // serviceid: serviceid[i].id,
+      // serviceName: serviceid[i].service,
       serviceid: faker.helpers.arrayElement(serviceid, { min: 2, max: 10 }),
-      like: faker.number.int({ max: 100 }),
-      dislike: faker.number.int({ max: 100 })
+      //   min: 2,
+      //   max: 10
+      // }),
+      likeCounter: faker.number.int({ max: 100 }),
+      dislikeCounter: faker.number.int({ max: 100 }),
+      commentCounter: faker.number.int({ max: 100 })
     }
     await db.providerService.create({ data: image })
   }
@@ -45,20 +59,20 @@ const sliderImage = async id => {
   return
 }
 
-const serveicGnerate = async id => {
-  const numberOfImages = faker.number.int({ min: 2, max: 10 })
-  for (let i = 0; i < numberOfImages; i++) {
-    const service = {
-      logo: faker.image.avatar(),
-      providerid: id, // Ensure this matches your database field name
-      service: fakerAR.helpers.arrayElement(['برمجة', 'كهرباء', 'ميكانيكا']),
-      detail: fakerAR.lorem.paragraph({ min: 3, max: 7 }),
-      userid: 'khalidnadish'
-    }
-    await db.providerService.create({ data: service })
-  }
-  return
-}
+// const serveicGnerate = async id => {
+//   const numberOfImages = faker.number.int({ min: 2, max: 10 })
+//   for (let i = 0; i < numberOfImages; i++) {
+//     const service = {
+//       logo: faker.image.avatar(),
+//       providerid: id, // Ensure this matches your database field name
+//       service: fakerAR.helpers.arrayElement(['برمجة', 'كهرباء', 'ميكانيكا']),
+//       detail: fakerAR.lorem.paragraph({ min: 3, max: 7 }),
+//       userid: 'khalidnadish'
+//     }
+//     await db.providerService.create({ data: service })
+//   }
+//   return
+// }
 
 const commentGnerate = async (id, user) => {
   const service = await db.providerService.findMany({
@@ -89,7 +103,7 @@ const commentGnerate = async (id, user) => {
   return
 }
 
-const dataSchema = async (counter, citits, service, cars) => {
+const dataSchema = async (counter, citits, service, Extraservice, cars) => {
   const typeOfType = ['c', 'w', 'h']
   let provideName = fakerAR.name.fullName()
 
@@ -100,18 +114,20 @@ const dataSchema = async (counter, citits, service, cars) => {
     coverImage: fakerAR.image.avatar(),
     logo: fakerAR.image.avatar(),
     carType: faker.helpers.arrayElements(cars, { min: 5, max: 20 }),
-
     starCount: faker.number.int({ max: 100 }), // 42
     commentCount: faker.number.int({ max: 100 }), // 42,
     likeCount: faker.number.int({ max: 100 }), // 42,
     disLikeCount: faker.number.int({ max: 100 }), // 42,
+
+    favCount: faker.number.int({ max: 100 }), // 42,
+    shareCount: faker.number.int({ max: 100 }), // 42,
+
     branchCount: faker.number.int({ min: 1, max: 10 }), // 42,
     service: faker.helpers.arrayElements(service, { min: 2, max: 5 }),
-
+    extarService: faker.helpers.arrayElements(Extraservice, { min: 2, max: 8 }),
     description: fakerAR.lorem.paragraph({ min: 3, max: 7 }),
     heroSlogon: fakerAR.lorem.paragraph({ min: 1, max: 1 }),
     detail: fakerAR.lorem.paragraph({ min: 5, max: 30 }),
-
     type: faker.helpers.arrayElements(typeOfType, { min: 1, max: 1 })[0],
     city: faker.helpers.arrayElements(citits, { min: 1, max: 1 })[0],
     dist: faker.helpers.arrayElements(['الشرفية', 'المكرونة'], {
@@ -124,14 +140,26 @@ const dataSchema = async (counter, citits, service, cars) => {
   return provider
 }
 
-export const newProviderData = async (length, citits, service, cars) => {
+export const newProviderData = async (
+  length,
+  citits,
+  service,
+  Extraservice,
+  cars
+) => {
   const provider = []
 
   // Create an array of promises for each iteration
   const promises = Array.from({ length: length }).map(async (_, index) => {
     const counter = index + 1
     // use the schema to create a new data
-    const newData = await dataSchema(counter, citits, service, cars)
+    const newData = await dataSchema(
+      counter,
+      citits,
+      service,
+      Extraservice,
+      cars
+    )
     provider.push(newData)
   })
 
@@ -149,31 +177,38 @@ export const createBlock = async (
   users,
   extraService
 ) => {
-  const providers = await newProviderData(count, citits, service, cars)
+  const providers = await newProviderData(
+    count,
+    citits,
+    service,
+    extraService,
+    cars
+  )
   providers?.map(async pro => {
     const rec = await db.provider.create({ data: pro })
     await sliderImage(rec.id)
     await providerBranch(rec.id, rec.branchCount)
     await commentGnerate(rec.id, users)
     await serviceProvierGnerate(rec.id, extraService)
+    // await updaterServiceName()
     // await serveicGnerate(rec.id)
   })
 }
 
-export const deleteBlock = async () => {
-  try {
-    await Promise.all([
-      db.provider.deleteMany(),
-      db.image.deleteMany(),
-      db.providerBranch.deleteMany(),
-      db.providerService.deleteMany(),
-      // db.service.deleteMany(),
-      db.comment.deleteMany()
-    ])
-    console.log('Deletion successful')
-  } catch (error) {
-    console.error('Error deleting records:', error)
-  }
+export const updaterServiceName = async () => {
+  const service = await db.providerService.findMany({})
+
+  service.map(async updater => {
+    const serviceName = await db.service.findFirst({
+      where: { id: updater.serviceid }
+    })
+    await db.providerService.update({
+      where: { id: updater.id },
+      data: { serviceName: serviceName.service }
+    })
+  })
+
+  return
 }
 
 export const getAllCitis = async () => {
@@ -183,8 +218,8 @@ export const getAllCitis = async () => {
 }
 
 export const getservice = async () => {
-  const service = await db.service.findMany({ where: { type: 'service' } })
-  const serviceNames = service.map(el => el.service)
+  const service = await db.service.findMany({ where: { type: 'department' } })
+  const serviceNames = service.map(el => el.id)
   return serviceNames
 }
 
@@ -196,9 +231,18 @@ export const getExtraservice = async () => {
   return serviceNames
 }
 
+// export const getExtraservice = async () => {
+//   const services = await db.service.findMany({
+//     where: { type: 'subservice' }
+//   })
+
+//   const serviceInfo = services.map(({ id, service }) => ({ id, service }))
+//   return serviceInfo
+// }
+
 export const getcars = async () => {
   const car = await db.car.findMany({})
-  const cars = car.map(el => el.name)
+  const cars = car.map(el => el.id)
   return cars
 }
 export const getusers = async () => {
@@ -221,4 +265,35 @@ export const fakeUsers = async count => {
     }
     await db.user.create({ data: image })
   }
+}
+
+export const deleteBlock = async () => {
+  try {
+    await Promise.all([
+      db.provider.deleteMany(),
+      db.image.deleteMany(),
+      db.providerBranch.deleteMany(),
+      db.providerService.deleteMany(),
+      // db.service.deleteMany(),
+      db.comment.deleteMany()
+    ])
+  } catch (error) {
+    console.error('Error deleting records:', error)
+  }
+}
+
+export const fakeMailing = async () => {
+  const users = await getusers()
+
+  for (let i = 0; i < 50; i++) {
+    const service = {
+      subject: fakerAR.lorem.sentence({ min: 1, max: 3 }),
+      msg: fakerAR.lorem.sentence({ min: 3, max: 5 }),
+      from: faker.helpers.arrayElement(users),
+      to: faker.helpers.arrayElement(users)
+    }
+    await db.inbox.create({ data: service })
+  }
+
+  console.log(users)
 }

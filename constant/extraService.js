@@ -6,7 +6,7 @@ import {
   Loyalty,
   Muscle,
   RoadHelp
-} from '@/app/provider/[providerid]/[slug]/_component/ProviderIcons'
+} from '@/components/shared/ProviderIcons'
 
 export const extraService = [
   {
@@ -101,7 +101,7 @@ export const extraService = [
     title: 'كهرباء',
     description: 'غير متوفر حاليا',
     icon: 'غير متوفر حاليا',
-    type: 'service',
+    type: 'department',
     subPoints: [
       'غير متوفر حاليا',
       'غير متوفر حاليا',
@@ -114,7 +114,7 @@ export const extraService = [
     title: 'ميكانيكا',
     description: 'غير متوفر حاليا',
     icon: 'غير متوفر حاليا',
-    type: 'service',
+    type: 'department',
     subPoints: [
       'غير متوفر حاليا',
       'غير متوفر حاليا',
@@ -127,7 +127,7 @@ export const extraService = [
     title: 'برمجة',
     description: 'غير متوفر حاليا',
     icon: 'غير متوفر حاليا',
-    type: 'service',
+    type: 'department',
     subPoints: [
       'غير متوفر حاليا',
       'غير متوفر حاليا',
@@ -140,7 +140,7 @@ export const extraService = [
     title: 'جربوكسات',
     description: 'غير متوفر حاليا',
     icon: 'غير متوفر حاليا',
-    type: 'service',
+    type: 'department',
     subPoints: [
       'غير متوفر حاليا',
       'غير متوفر حاليا',

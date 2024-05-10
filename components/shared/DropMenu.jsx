@@ -28,7 +28,6 @@ function DropMenu({ frameworks, label, icon, placeholder, noDataMessage }) {
   const pathName = usePathname()
   const router = useRouter()
 
- 
   useEffect(() => {
     const queryString = urlQuery('vechile', value)
     const updatedUrl = `${pathName}${queryString ? `?${queryString}` : ''}`
@@ -42,18 +41,9 @@ function DropMenu({ frameworks, label, icon, placeholder, noDataMessage }) {
           variant='ghost'
           role='combobox'
           aria-expanded={open}
-          // className="fixed bottom-2 left-2 rounded-full size-12"
-          className='fixed  md:bottom-4 left-14 md:left-4 flex size-12 flex-col items-center  justify-center  gap-2 rounded-full border-2  bg-secondary  font-tajwal font-semibold'
+          className='fixed  bottom-4 left-2 z-50 flex size-12 flex-col items-center justify-center  rounded-full  border  bg-primary shadow-xl '
         >
-          <div className='flex items-center flex-col gap-1  '>
-            <div>{icon}</div>
-            <div className='text-right'>
-              {/* {value
-                ? frameworks?.find(framework => framework?.value === value)
-                    ?.label
-                : label} */}
-            </div>
-          </div>
+          {icon}
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-[250px] p-0'>
@@ -68,7 +58,6 @@ function DropMenu({ frameworks, label, icon, placeholder, noDataMessage }) {
                   value={framework.value}
                   onSelect={currentValue => {
                     setValue(currentValue === value ? '' : currentValue)
-
                     setOpen(false)
                   }}
                 >

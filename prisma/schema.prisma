@@ -24,7 +24,10 @@ model provider {
   likeCount    Int      @default(0)
   disLikeCount Int      @default(0)
   viewerCount  Int      @default(0)
+  favCount     Int      @default(0)
+  shareCount   Int      @default(0)
   service      String[]
+  extarService String[]
   description  String   @default("")
   detail       String   @default("")
   type         String   @default("")
@@ -39,9 +42,17 @@ model provider {
 model providerBranch {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   providerid String   @default("")
+  branchName String   @default("")
   image      String   @default("")
   lat        Float    @default(0)
-  lon        Float    @default(0)
+  lan        Float    @default(0)
+  sat        String   @default("")
+  sun        String   @default("")
+  mon        String   @default("")
+  tue        String   @default("")
+  wed        String   @default("")
+  thu        String   @default("")
+  fri        String   @default("")
   userid     String   @default("")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -82,15 +93,16 @@ model service {
 
 // contains the service information for each provider that support and like and dislike to speed up the query 
 model providerService {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  providerid String   @default("")
-  // service    String   @default("")
-  serviceid  String   @default("")
-  like       Int      @default(0)
-  dislike    Int      @default(0)
-  userid     String   @default("")
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  providerid     String   @default("")
+  serviceid      String   @default("")
+  serviceName    String   @default("")
+  likeCounter    Int      @default(0)
+  dislikeCounter Int      @default(0)
+  commentCounter Int      @default(0)
+  userid         String   @default("")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 // store service action from Each user To each Service or SubService for speisific  provider with 
@@ -246,8 +258,8 @@ model user {
   password      String   @default("")
   isVerified    Boolean  @default(false)
   VerifiedToken String   @default("")
-  provider      String @default("")
-  role      String   @default("user")
+  provider      String   @default("")
+  role          String   @default("user")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -262,13 +274,15 @@ model profile {
   updatedAt DateTime @updatedAt
 }
 
-
- 
- 
-
- 
- 
-  
- 
-// Optional for WebAuthn support
- 
+model inbox {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  from      String   @default("")
+  to        String   @default("")
+  subject   String   @default("")
+  msg       String   @default("")
+  type       String   @default("")
+  url       String   @default("")
+  isOpen    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

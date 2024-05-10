@@ -38,18 +38,18 @@ function FilterDescriptor({ query }) {
       break
   }
   return (
-    <div className='mt-10 flex w-full flex-wrap items-center gap-2 justify-center'>
+    <div className='flex w-full flex-wrap items-center justify-center gap-2'>
       <Description
-        icon={<Car className='opacity-45 size-5 md:size-6' strokeWidth={1}  />}
+        icon={<Car className='size-5 opacity-45 md:size-6' strokeWidth={1} />}
         data={vechileVar}
-        opacity={"O100"}
+        opacity={'O100'}
       />
       <Description
-        icon={<ArrowDown10 className='opacity-45 size-5 ' strokeWidth={1} />}
+        icon={<ArrowDown10 className='size-5 opacity-45 ' strokeWidth={1} />}
         data={sortVar}
       />
       <Description
-        icon={<Store className='opacity-45 size-5' strokeWidth={1} />}
+        icon={<Store className='size-5 opacity-45' strokeWidth={1} />}
         data={typeVar}
       />
     </div>
@@ -58,11 +58,17 @@ function FilterDescriptor({ query }) {
 
 export default FilterDescriptor
 
-const Description = ({ icon, data,opacity="O40"}) => {
+const Description = ({ icon, data, opacity = 'O40' }) => {
   return (
     <div className='flex items-center gap-1  border-b px-1 text-sm'>
       {icon}
-      <Text opacity={opacity} className="text-[.6rem] md:text-sm capitalize" fontFamily={"tajwal"}>{data}</Text>
+      <Text
+        opacity={opacity}
+        className='hidden text-[.6rem] capitalize md:block md:text-sm'
+        fontFamily={'tajwal'}
+      >
+        {data}
+      </Text>
     </div>
   )
 }

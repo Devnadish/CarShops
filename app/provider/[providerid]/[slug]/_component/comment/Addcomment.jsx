@@ -2,7 +2,7 @@
 import Submit from '@/components/shared/Submit'
 import { Button } from '@/components/ui/button'
 import React, { useState } from 'react'
-import { AddComment } from '../ProviderIcons'
+import { AddComment } from '../../../../../../components/shared/ProviderIcons'
 import CommetInput from '@/app/provider/[providerid]/[slug]/_component/comment/CommetInput'
 import { useMediaQuery } from '@react-hook/media-query'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
@@ -12,7 +12,7 @@ import {
   DrawerContent,
   DrawerFooter
 } from '@/components/ui/drawer'
-import { LegalCondition } from '../LegalCondition'
+import { LegalCondition } from '../sections/comment/LegalCondition'
 function Addcomment() {
   const [open, setOpen] = useState(false)
   return (

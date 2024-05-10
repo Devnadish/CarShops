@@ -3,7 +3,7 @@ import { cn } from 'lib/utils'
 import { cva } from 'class-variance-authority'
 
 const textVariants = cva(
-  'flex items-center gap-1 text-wrap leading-3 text-foreground transition-colors font-cairo text-inherit text-right ',
+  'flex items-center gap-1 text-wrap leading-3 text-foreground transition-colors font-cairo text-inherit text-right leading-5',
   {
     variants: {
       fontSize: {

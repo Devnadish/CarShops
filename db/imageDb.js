@@ -21,7 +21,6 @@ export async function getSignature(folder) {
 }
 
 export async function UploadToCloudnary({ public_id, version, signature }) {
-  console.log(expectedSignature, signature)
   // verify the data
   const expectedSignature = cloudinary.utils.api_sign_request(
     { public_id, version },

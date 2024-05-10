@@ -1,3 +1,4 @@
+import { EMail } from '@/components/svg/Mail'
 import {
   Facebook,
   Instagram,
@@ -37,8 +38,15 @@ export const menu = [
       <MessagesSquare size={15} strokeWidth={1} className='text-foreground' />
     ),
     href: '/'
+  },
+  {
+    id: 5,
+    title: 'راسلنا',
+    icon: <EMail className='size-8 text-primary' />,
+    href: '/support/sendmsg'
   }
 ]
+
 export const providerMenu = [
   {
     id: 1,

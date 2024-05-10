@@ -1,11 +1,12 @@
 import { getProviderList } from '@/db/providerList'
-import { Bar } from './_components/Bar'
-import ShowCard from './_components/xcard/ShowCard'
+import { Bar } from './_components/card/Bar'
 import Counters from '@/components/hooks/Counters'
-import Loadmore from './_components/xcard/Loadmore'
-import FilterDescriptor from './_components/FilterDescriptor'
+import Loadmore from './_components/card/Loadmore'
 import { getServerSession } from 'next-auth'
 import { options } from 'authentication/options'
+import NewCard from './_components/card/NewCard'
+import Link from 'next/link'
+import CardSkelton from './_components/card/CardSkelton'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,36 +20,19 @@ export default async function Home({ searchParams }) {
     userid
   )
   return (
-    <main className=' relative flex   w-full max-w-5xl flex-col items-center justify-center gap-4'>
+    <main className=' relative flex   w-full  flex-col items-center justify-center gap-4'>
       <Counters records={recordCount} pages={pageCount} />
-      <Bar recordCount={recordCount} pageCount={pageCount} />
-      <FilterDescriptor query={query} />
+      <Bar recordCount={recordCount} pageCount={pageCount} query={query} />
 
-      <div className='absolute top-20 flex w-full  flex-wrap  items-center justify-center  gap-4 '>
+      <div className='absolute top-20 flex w-full    flex-wrap items-center  justify-center  gap-4'>
         {providers.map((provider, index) => (
-          <ShowCard
-            key={provider.id}
-            providerid={provider.id}
-            providerSlug={provider.slug}
-            providerName={provider.providerName}
-            starCount={provider.starCount}
-            commentCount={provider.commentCount}
-            likeCount={provider.likeCount}
-            disLikeCount={provider.disLikeCount}
-            viewerCount={provider.viewerCount}
-            service={provider.service}
-            image={provider.coverImage}
-            description={provider.description}
-            carType={provider.carType}
-            counter={provider.counter}
-            city={provider.city}
-            type={provider.type}
-            dist={provider.dist}
-            detail={provider.detail}
-            index={index}
-            userid={userid}
-            session={session}
-          />
+          <Link
+            href={{
+              pathname: `/provider/${provider.id}/${provider.slug}`
+            }}
+          >
+            <NewCard key={provider.id} provider={provider} />
+          </Link>
         ))}
 
         <Loadmore query={query} pageCount={pageCount} />
@@ -56,4 +40,3 @@ export default async function Home({ searchParams }) {
     </main>
   )
 }
-// export default async function Home() { return <div> hi </div> }

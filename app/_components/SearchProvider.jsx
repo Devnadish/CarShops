@@ -11,6 +11,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import Submit from '@/components/shared/Submit'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { urlQuery } from '@/lib/url'
+import { Input } from '@/components/ui/input'
 
 function SearchProvider() {
   const [open, setOpen] = useState(false)
@@ -32,7 +33,8 @@ function SearchProvider() {
         onClick={() => {
           setOpen(true)
         }}
-        className='flex h-8 w-fit items-center justify-between rounded-full  '
+        size='sm'
+        className='    hover:bg-primary'
       >
         {/* <Text fontSize='xs' opacity={'opacity-35'}>
           بحث
@@ -68,7 +70,7 @@ const FormSearch = ({ searchText, setSearchText }) => {
     setSearchText(e.target.value)
   }
   return (
-    <INPUT
+    <Input
       value={searchText}
       icon={<Search strokeWidth={1} />}
       placeholder='ابحث عن.. '

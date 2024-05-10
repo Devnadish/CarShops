@@ -1,6 +1,5 @@
 import GitHubProvider from 'next-auth/providers/github'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { PrismaAdapter } from '@auth/prisma-adapter'
 import db from '@/lib/prisma'
 import bcrypt from 'bcrypt'
 
@@ -89,7 +88,6 @@ export const options = {
     async signIn({ user, account, profile }) {
       // Optional: Customize user data before saving
       const newUser = { ...user, providerAccountId: account.id }
-      console.log(account.provider)
 
       return true
     }
