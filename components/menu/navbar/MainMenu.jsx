@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const MainMenu = () => {
   return (
-    <div className='flex h-[50px]     w-[80%]  items-center  justify-end gap-2  border-x border-border px-3 md:justify-start    '>
+    <div className='flex h-[50px]     w-full  items-center  justify-end gap-2   px-3 md:justify-center    '>
       {menu.map(menuItem => {
         return (
           <Link

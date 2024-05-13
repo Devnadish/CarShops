@@ -14,16 +14,43 @@ import { CommentsSection } from './_component/sections/comment/CommentsSection'
 import ScrollToTop from '@/components/shared/ScrollToTop'
 import { Location } from './_component/sections/location/Location'
 import { Testmoinal } from './_component/sections/testmonial/Testmoinal'
+import { RateSection } from './_component/sections/rate/RateSection'
+import Link from 'next/link'
+import Text from '@/components/shared/Text'
+import { Edit } from '@/lib/icons'
 
 export const dynamic = 'force-dynamic'
 
 async function page({ params, searchParams }) {
   const session = await getServerSession(options)
-  const provider = await providerData(params.providerid)
 
+  const provider = await providerData(params.providerid)
   const OPTIONS = {}
+
+  const thisProvider =
+    session?.user?.role === 'provider' &&
+    session.user.pageId === params.providerid
+
   return (
     <div className='flex w-[90%] flex-col items-center justify-center gap-4'>
+      <div className='flex w-full items-center justify-end'>
+        {thisProvider && (
+          <Link
+            href='/'
+            className={
+              'flex w-32  items-center justify-between self-end rounded-md bg-destructive px-6 py-2 '
+            }
+          >
+            <Text>تعديل</Text>
+            <Edit />
+          </Link>
+        )}
+      </div>
+      <RateSection
+        session={session}
+        providerId={provider.id}
+        rateing={provider.providerRate}
+      />
       <HeroSection
         heroSlogon={provider.heroSlogon}
         logo={provider.logo}

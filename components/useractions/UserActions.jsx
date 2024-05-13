@@ -21,8 +21,8 @@ function UserActions({
   userActions
 }) {
   return (
-    <div className='fixed left-0 top-12 z-50 flex h-full w-14 flex-col   items-center justify-start gap-8   bg-secondary px-1 shadow-xl '>
-      <div className='mt-5 flex flex-col items-center gap-2 '>
+    <div className='fixed bottom-0 left-0 z-50 flex h-12 w-full  items-center justify-end gap-8   bg-secondary px-1 shadow-xl '>
+      <div className='flex  items-center gap-2 '>
         <StarAction
           starCount={starCount}
           session={session}
@@ -36,7 +36,7 @@ function UserActions({
           isFav={userActions.isFav}
         />
       </div>
-      <div className='flex flex-col items-center gap-2'>
+      <div className='flex  items-center gap-2'>
         <LikeBtnAction
           likeCount={likeCount}
           providerId={providerId}

@@ -15,6 +15,8 @@ model provider {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   slug         String   @default("")
   providerName String   @unique
+  email        String   @unique
+  mobile       String   @unique
   coverImage   String   @default("")
   logo         String   @default("")
   heroSlogon   String   @default("")
@@ -258,8 +260,8 @@ model user {
   password      String   @default("")
   isVerified    Boolean  @default(false)
   VerifiedToken String   @default("")
-  provider      String   @default("")
   role          String   @default("user")
+  pageId        String   @default("")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -283,6 +285,17 @@ model inbox {
   type       String   @default("")
   url       String   @default("")
   isOpen    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model userRating {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  rate      Int      @default(0)
+  comment   String   @default("")
+  providerId String @default("")
+  userId       String   @default("")
+  isPublic    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

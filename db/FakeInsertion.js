@@ -1,5 +1,6 @@
 'use server'
 import db from '@/lib/prisma'
+import bcrypt from 'bcrypt'
 import { Slug } from '@/lib/slug'
 import { faker } from '@faker-js/faker'
 import { fakerAR } from '@faker-js/faker'
@@ -112,6 +113,8 @@ const dataSchema = async (counter, citits, service, Extraservice, cars) => {
     providerName: provideName,
     slug: providerSlug,
     coverImage: fakerAR.image.avatar(),
+    email: faker.internet.exampleEmail({ firstName: 'Jeanne' }),
+    mobile: faker.phone.number(),
     logo: fakerAR.image.avatar(),
     carType: faker.helpers.arrayElements(cars, { min: 5, max: 20 }),
     starCount: faker.number.int({ max: 100 }), // 42
@@ -184,12 +187,16 @@ export const createBlock = async (
     extraService,
     cars
   )
+
+  await genetaeUsers(count)
   providers?.map(async pro => {
     const rec = await db.provider.create({ data: pro })
+    await generateProviderAsUser(pro, rec.id)
     await sliderImage(rec.id)
     await providerBranch(rec.id, rec.branchCount)
     await commentGnerate(rec.id, users)
     await serviceProvierGnerate(rec.id, extraService)
+    await rateGnerate(rec.id)
     // await updaterServiceName()
     // await serveicGnerate(rec.id)
   })
@@ -251,22 +258,6 @@ export const getusers = async () => {
   return users
 }
 
-export const fakeUsers = async count => {
-  const role = ['user', 'admin', 'provider']
-  for (let i = 0; i < count; i++) {
-    const image = {
-      name: fakerAR.name.fullName(),
-      mobile: faker.phone.number(),
-      email: faker.internet.email(),
-      avatar: faker.image.avatar(),
-      password: faker.number.int({ min: 10, max: 100 }).toString(), // 5
-      isBlocked: faker.datatype.boolean(),
-      role: faker.helpers.arrayElements(role, { min: 1, max: 1 })[0]
-    }
-    await db.user.create({ data: image })
-  }
-}
-
 export const deleteBlock = async () => {
   try {
     await Promise.all([
@@ -275,7 +266,9 @@ export const deleteBlock = async () => {
       db.providerBranch.deleteMany(),
       db.providerService.deleteMany(),
       // db.service.deleteMany(),
-      db.comment.deleteMany()
+      db.comment.deleteMany(),
+      db.user.deleteMany(),
+      db.userRating.deleteMany()
     ])
   } catch (error) {
     console.error('Error deleting records:', error)
@@ -296,4 +289,57 @@ export const fakeMailing = async () => {
   }
 
   console.log(users)
+}
+
+const rateGnerate = async id => {
+  const users = await db.user.findMany({})
+  const userIds = users.map(user => user.id)
+  const numberOfRate = faker.number.int({ min: 10, max: 100 })
+
+  for (let i = 0; i < numberOfRate; i++) {
+    const rate = {
+      rate: faker.helpers.arrayElement([1, 2, 3, 4, 5]),
+      comment: fakerAR.lorem.sentence({ min: 3, max: 5 }),
+      providerId: id,
+      userId: faker.helpers.arrayElement(userIds)
+    }
+
+    await db.userRating.create({ data: rate })
+  }
+
+  return
+}
+
+const generateProviderAsUser = async (provider, id) => {
+  const providerUser = await db.user.create({
+    data: {
+      name: provider.providerName,
+      email: provider.email,
+      image: provider.logo,
+      password: bcrypt.hashSync('0000', 8),
+      isVerified: true,
+      VerifiedToken: '0000',
+      role: 'provider',
+      pageId: id
+    }
+  })
+
+  return
+}
+
+export const genetaeUsers = async count => {
+  for (let index = 0; index < count; index++) {
+    await db.user.create({
+      data: {
+        name: fakerAR.name.fullName(),
+        // mobile: faker.phone.number(),
+        email: faker.internet.email(),
+        image: faker.image.avatar(),
+        password: bcrypt.hashSync('0000', 8),
+        isVerified: true,
+        role: 'user'
+      }
+    })
+  }
+  return
 }

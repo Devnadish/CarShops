@@ -1,10 +1,11 @@
 import { getPrviderData } from '@/db/provider'
-import BackEndError from '@/components/shared/BackEndError'
-import { ProvideName } from './_component/navbar/ProvideName'
+// import BackEndError from '@/components/shared/BackEndError'
+// import { ProvideName } from './_component/navbar/ProvideName'
 import { getServerSession } from 'next-auth'
 import { options } from 'authentication/options'
 import { CheckIsHaveStarFromUser, CheckUserAction } from '@/db/utlDb'
 import UserActions from '@/components/useractions/UserActions'
+import { ProvideName } from './[providerid]/[slug]/_component/navbar/ProvideName'
 export const dynamic = 'force-dynamic'
 export default async function providerLayout({
   params,
@@ -32,14 +33,14 @@ export default async function providerLayout({
     session?.user?.id
   )
 
-  if (!providerName)
-    return (
-      <BackEndError
-        msg='يوجد خلل في جلب بيانات العميل'
-        refrence={params.providerid}
-        sourceCode={'1880'}
-      />
-    )
+  // if (!providerName)
+  //   return (
+  //     <BackEndError
+  //       msg='يوجد خلل في جلب بيانات العميل'
+  //       refrence={params.providerid}
+  //       sourceCode={'1880'}
+  //     />
+  //   )
   return (
     <section className='h-scrren flex w-full flex-col items-center justify-center'>
       <ProvideName
@@ -67,7 +68,7 @@ export default async function providerLayout({
         favCount={favCount}
       />
 
-      <div className='mt-[30px] flex w-full flex-col items-start justify-center px-4'>
+      <div className='mt-[30px] flex w-full flex-col items-center justify-center px-4'>
         {children}
       </div>
     </section>

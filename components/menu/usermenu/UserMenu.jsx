@@ -7,26 +7,39 @@ import { UserMenuBody } from './UserMenuBody'
 import { UseMenuFooter } from './UseMenuFooter'
 import ActivationForm from '@/app/auth/register/_component/ActivationForm'
 import { Avatar } from '@/components/shared/Avatar'
-import { Bell } from '@/lib/icons'
 import Inbox from '@/components/mailsystem/Inbox'
 
-function UserMenu({ session, location, newMails }) {
+function UserMenu({ session, newMails }) {
   const [open, setOpen] = useState(false)
   const userId = session?.user?.id
   const userName = session?.user?.name
   const userAvatar = session?.user?.image
   const useremail = session?.user?.email
   const isVerified = session?.user?.isVerified
+  const role = session?.user?.role
 
   return (
-    <div className='flex  items-center gap-2 border-border px-3'>
-      <Inbox session={session} newMails={newMails} />
+    <div className='flex  items-center gap-1  px-1'>
       <Button
-        className='flex w-fit items-center justify-center gap-2 rounded-md border bg-white/10 px-2 py-1 shadow-lg hover:bg-blue-500'
+        variant='ghost'
+        className='relative flex items-center justify-center rounded-full   bg-transparent'
         onClick={() => setOpen(true)}
       >
-        <Avatar src={userAvatar} alt={useremail} fallBack={'CR'} />
+        <Avatar
+          src={userAvatar}
+          alt={useremail}
+          fallBack={'CR'}
+          className='p-1'
+          role={role}
+        />
+
+        <div className='absolute right-3 top-0 flex size-4 items-center justify-center rounded-full  bg-destructive  text-primary-foreground'>
+          <span className='text-[.6rem] text-foreground'>
+            {newMails?.length || 0}
+          </span>
+        </div>
       </Button>
+
       {!isVerified && <ActivationForm />}
 
       <SideBox
@@ -47,6 +60,8 @@ function UserMenu({ session, location, newMails }) {
             alt={userName}
             isVerified={isVerified}
             userid={userId}
+            session={session}
+            newMails={newMails}
           />
         }
       >

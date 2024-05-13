@@ -6,9 +6,15 @@ import { Button } from '../ui/button'
 function GoBack() {
   const router = useRouter()
   return (
-    <Button onClick={() => router.back()}>
-      <EpBack />
-    </Button>
+    <div className='flex justify-end'>
+      <Button
+        onClick={() => router.back()}
+        className='h-9 w-12 '
+        variant='outline'
+      >
+        <EpBack />
+      </Button>
+    </div>
   )
 }
 

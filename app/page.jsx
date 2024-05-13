@@ -11,7 +11,6 @@ import CardSkelton from './_components/card/CardSkelton'
 export const dynamic = 'force-dynamic'
 
 export default async function Home({ searchParams }) {
-  const session = await getServerSession(options)
   const query = searchParams || ''
   const userid = 'khalidnadish'
   const { providers, pageCount, recordCount } = await getProviderList(
@@ -19,6 +18,7 @@ export default async function Home({ searchParams }) {
     query,
     userid
   )
+
   return (
     <main className=' relative flex   w-full  flex-col items-center justify-center gap-4'>
       <Counters records={recordCount} pages={pageCount} />

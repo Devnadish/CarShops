@@ -7,6 +7,7 @@ import {
   getServiceIdRetunServiceInfo,
   grapActionFromProviderService
 } from './utlDb'
+import { CollectRatine } from '@/app/provider/[providerid]/[slug]/_component/sections/rate/compunent/rateDb'
 
 export const providerData = async (id, userid) => {
   const providerInfo = await getProviderInfo(id)
@@ -18,14 +19,15 @@ export const providerData = async (id, userid) => {
   const Department = await getServiceInformation(providerInfo.service, id)
   const carsInfo = await getCarsDetail(providerInfo.carType)
   const branchWorkingshour = await getBranchWorkingsHour(id)
-
+  const providerRate = await CollectRatine(id)
   const provider = {
     ...providerInfo,
     Imeges,
     Department,
     extraService,
     carsInfo,
-    branchWorkingshour
+    branchWorkingshour,
+    providerRate
   }
 
   // Increase viewr By One

@@ -15,33 +15,29 @@ function Inbox({ newMails }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className='flex  items-center gap-2 border-border px-3'>
+    <>
       <Button
         variant='outline'
-        className='relative flex  items-center justify-center '
+        size={'sm'}
+        className='relative mb-2  flex items-center justify-center border border-muted-foreground/50 bg-transparent '
         onClick={() => setOpen(true)}
       >
         <Bell className='text-secondary-foreground' />
-        <div className='absolute right-2 top-0.5 flex size-5 items-center justify-center rounded-full bg-primary  text-primary-foreground'>
-          <span className='text-[.7rem]'>{newMails?.length || 0}</span>
+        <div className='absolute left-3 top-1 flex size-4 items-center justify-center rounded-full  bg-destructive  text-primary-foreground'>
+          <span className='text-[.6rem] text-foreground'>
+            {newMails?.length || 0}
+          </span>
         </div>
       </Button>
 
       <SideBox
         open={open}
         setOpen={setOpen}
-        // footer={
-        //   <UseMenuFooter
-        //     userid={userId}
-        //     isVerified={isVerified}
-        //     setOpen={setOpen}
-        //   />
-        // }
         header={<InboxHedear newMails={newMails} />}
       >
         <InboxPreview newMails={newMails} setOpen={setOpen} />
       </SideBox>
-    </div>
+    </>
   )
 }
 

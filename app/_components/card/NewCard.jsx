@@ -6,7 +6,7 @@ import { ExtraSevice } from './ExtraSevice'
 import { WorkType } from './WorkType'
 import { CarFix } from './CarFix'
 import ShowScrollText from '@/components/shared/ShowScrollText'
-
+import { AspectRatio } from '@/components/ui/aspect-ratio'
 import {
   Card,
   CardContent,
@@ -18,10 +18,11 @@ import {
 import { providerType, providerTypeIcon } from '@/lib/provider'
 import { Badge } from '@/components/ui/badge'
 import { CardBar } from './CardBar'
+import { StarFilled } from '@/components/svg/StarFilled'
 
 function NewCard({ provider }) {
   return (
-    <Card className='w-[350px]  hover:border-primary'>
+    <Card className='w-[300px]  hover:border-primary'>
       <CardHeader>
         <div className='flex w-full items-center justify-between '>
           <div className='flex  items-center gap-2 font-cairo'>
@@ -38,25 +39,34 @@ function NewCard({ provider }) {
               </div>
             </div>
           </div>
-
-          <div className='flex  flex-col items-center gap-2 font-cairo'>
-            <Badge variant={'secondary'}>
-              {providerTypeIcon(provider.type)}
-              {providerType(provider.type)}
-            </Badge>
-            <ExtraSevice />
-          </div>
         </div>
-
-        <div className='relative h-full max-h-[185]  min-h-[185px] w-full min-w-[300px] max-w-[300px]  rounded '>
-          <Image
-            src={provider.coverImage}
-            alt={provider.providerName}
-            fill
-            className='rounded-lg'
-          />
+        <div className='flex    items-center justify-between gap-2 font-cairo'>
+          <Badge variant={'secondary'}>
+            {providerTypeIcon(provider.type)}
+            {providerType(provider.type)}
+          </Badge>
+          <ExtraSevice />
+          <Badge
+            variant={'secondary'}
+            className={
+              'flex  w-16 items-center justify-between bg-primary text-yellow-400'
+            }
+          >
+            {provider.rate.percentage} %
+            <StarFilled size={24} />
+          </Badge>
+        </div>
+        {/* <div className='relative h-auto w-full min-w-[250px] max-w-[250px]  rounded '>
+          <AspectRatio ratio={16 / 9} className='bg-muted'>
+            <Image
+              src={provider.coverImage}
+              alt={provider.providerName}
+              fill
+              className='rounded-lg'
+            />
+          </AspectRatio>
           <div className='absolute left-0 top-0 z-20 flex h-9 w-full  items-center justify-between gap-2  px-2  '></div>
-        </div>
+        </div> */}
       </CardHeader>
       <CardContent className='flex flex-col items-center gap-2 '>
         <WorkType service={provider.service} />

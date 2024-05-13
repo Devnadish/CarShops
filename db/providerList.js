@@ -7,6 +7,7 @@ import {
   getCarIdRetunCarInfo,
   getServiceIdRetunServiceInfo
 } from './utlDb'
+import { CollectRatine } from '@/app/provider/[providerid]/[slug]/_component/sections/rate/compunent/rateDb'
 
 // export const getProviderList = async (pageNo, query, userid) => {
 //   const limit = parseInt(process.env.PROVODER_PAGE_LIMIT)
@@ -94,8 +95,9 @@ export const getProviderList = async (pageNo, query) => {
   }
 
   const providerWithCarName = await carListWithIdReturnCarNames(providers)
-  const finalProvider =
-    await serviceistWithIdReturnServiceNames(providerWithCarName)
+  const providerRate = await getProvidersRate(providers)
+
+  const finalProvider = await serviceistWithIdReturnServiceNames(providerRate)
 
   revalidatePath('/')
 
@@ -142,6 +144,20 @@ export const serviceistWithIdReturnServiceNames = async providers => {
       return {
         ...provider,
         service: serviceNames
+      }
+    })
+  )
+  return updatedProviders
+}
+
+export const getProvidersRate = async providers => {
+  const updatedProviders = await Promise.all(
+    providers.map(async provider => {
+      const rate = await CollectRatine(provider.id)
+
+      return {
+        ...provider,
+        rate: rate
       }
     })
   )

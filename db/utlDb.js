@@ -152,3 +152,16 @@ export const getUserActions = async (userid, actionid) => {
 
   return finalProvider
 }
+
+export const userInfo = async useId => {
+  const user = await db.user.findFirst({
+    where: { id: useId },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      image: true
+    }
+  })
+  return user
+}

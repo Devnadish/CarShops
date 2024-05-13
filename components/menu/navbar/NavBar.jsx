@@ -9,7 +9,7 @@ const NavBar = ({ session, newMails }) => {
   }
 
   return (
-    <nav className='fixed left-0 top-0 z-50 flex h-[55px] w-full items-center justify-between gap-8 bg-secondary  px-4 shadow dark:shadow-black/50 '>
+    <nav className='fixed left-0 top-0 z-50 flex h-[55px] w-full items-center justify-between gap-2 bg-secondary  shadow dark:shadow-black/50 '>
       {/* <BurgerMenu /> */}
       {session ? (
         <UserMenu session={session} newMails={newMails} />
@@ -17,11 +17,9 @@ const NavBar = ({ session, newMails }) => {
         <LoginBtn />
       )}
       <MainMenu />
+      {pathName !== '/' && <GoHome />}
 
-      <div className='hidden w-[20%] items-center justify-around md:flex'>
-        {pathName !== '/' && <GoHome />}
-        {/* <Logo /> */}
-      </div>
+      {/* <Logo /> */}
     </nav>
   )
 }

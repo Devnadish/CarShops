@@ -67,6 +67,7 @@ export const options = {
           ...token,
           id: user.id,
           role: user.role,
+          pageId: user.pageId,
 
           isVerified: user.isVerified
         }
@@ -80,6 +81,7 @@ export const options = {
           ...session.user,
           id: token.id,
           role: token.role,
+          pageId: token.pageId,
           isVerified: token.isVerified
         }
       }

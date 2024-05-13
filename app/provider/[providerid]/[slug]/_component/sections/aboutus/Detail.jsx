@@ -14,7 +14,7 @@ export const Detail = ({ detail, description }) => {
           <Text className={'leading-6'}>{description}</Text>
         </ScrollArea>
         <ScrollArea
-          className='h-fit max-h-[60%] w-full rounded-md  border-t px-4 py-2'
+          className='h-fit max-h-[60%] w-full   border-t px-4 py-2'
           dir='rtl'
         >
           <Text className={'leading-6'}>{detail}</Text>
